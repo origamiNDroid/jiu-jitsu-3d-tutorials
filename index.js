@@ -32,10 +32,6 @@ app.use((err, req, res, next) => {
   next();
 });
 
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-});
-
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
