@@ -9,8 +9,10 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // Connect to the database
+const uri = "mongodb+srv://bjj-admin:bjj-admin@cluster0.kflwd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+
 mongoose
-  .connect(process.env.DB, { useNewUrlParser: true })
+  .connect(uri, { useNewUrlParser: true })
   .then(() => console.log(`Database connected successfully`))
   .catch((err) => console.log(err));
 
