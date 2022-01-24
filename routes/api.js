@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Todo = require('../models/todo');
 const User = require("../models/user.js");
+const Transitions = require("../models/transitions.js");
 
 router.get('/todos', (req, res, next) => {
   // This will return all the data, exposing only the id and action field to the client
@@ -156,6 +157,68 @@ router.post('/addUser', async (req, res, next) =>
 
     var ret = { "error": error, jwtToken: refreshedToken };
     res.status(200).json(ret);
+
+});
+
+router.post('/search', async (req, res, next) =>
+{
+
+	// incoming: userId, search
+	// outgoing: results[string: ingNames], error
+	// - returns an array of strings back to user, filled with
+	//   ingredients
+
+	var error = '';
+	//const { search, jwtToken } = req.body;
+	// const { search } = req.body;
+	const { name } = req.body;
+
+	// try
+	// {
+	//   if( token.isExpired(jwtToken))
+	//   {
+	//
+	//     var r = { "error" : "The JWT is no longer valid", jwtToken: ''};
+	//     res.status(200).json(r);
+	//
+	//     return;
+	//   }
+	// }
+	// catch(e)
+	// {
+	//   console.log(e.message);
+	// }
+
+	// var _search = search.trim();
+
+	//const db = client.db();
+	// const results = await db.collection('Transitions').find({"transitions":{$regex:_search+'.*', $options:'r'}}).toArray();
+	const results = await Transitions.find({Name:{$regex: name, $options: '$i'}})
+	.then((ret) => {
+		console.log(ret);
+		res.status(200).json(ret);
+	}).catch((err =>
+		console.log(err)
+	));
+	var _ret = [];
+
+
+	var refreshedToken = null;
+
+	// try
+	// {
+	//   refreshedToken = token.refresh(jwtToken);
+	// }
+	// catch(e)
+	// {
+	//   console.log(e.message);
+	// }
+
+	var ret = { results:_ret, error: error, jwtToken: refreshedToken };
+
+	// Testing comments
+	// console.log(ret);
+	// res.status(200).json(ret);
 
 });
 
