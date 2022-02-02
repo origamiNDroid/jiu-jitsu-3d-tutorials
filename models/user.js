@@ -24,6 +24,11 @@ const UserSchema = new Schema({
     },
     resetPasswordToken: String,
     resetPasswordExpires: Date,
+	Transitions_List: [{
+	  // type: TransitionsSchema
+      type: mongoose.Schema.Types.ObjectId,
+	  ref: 'Transitions'
+    }]
 });
 
 module.exports = user = mongoose.model('Users', UserSchema, "users");

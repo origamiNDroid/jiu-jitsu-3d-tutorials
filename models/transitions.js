@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const TransitionsSchema = new Schema({
+const TransitionsSchema = new mongoose.Schema({
   Name: {
     type: String,
 	required: true
@@ -26,7 +26,8 @@ const TransitionsSchema = new Schema({
   },
   Description: {
 	type: String,
-},
+  }
 });
 
-module.exports = transitions = mongoose.model('Transitions', TransitionsSchema, "transitions");
+const Transitions = mongoose.model("Transitions", TransitionsSchema, "transitions");
+module.exports = Transitions;

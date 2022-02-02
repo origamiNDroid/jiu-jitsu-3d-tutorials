@@ -1,8 +1,10 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const router = express.Router();
+const { callbackify } = require("util");
 const Todo = require('../models/todo');
-const User = require("../models/user.js");
 const Transitions = require("../models/transitions.js");
+const User = require("../models/user.js");
 
 router.get('/todos', (req, res, next) => {
   // This will return all the data, exposing only the id and action field to the client
@@ -54,16 +56,16 @@ router.post('/login', async (req, res, next) =>
     fn = results[0].FirstName;
     ln = results[0].LastName;
 
-    // try
-    // {
-    //   const token = require("./createJWT.js");
-    //   ret = token.createToken(fn, ln, id);
-    // }
-    // catch(e)
-    // {
-    //   ret = { "error" : e.message };
-    //   res.status(500).json(ret);
-    // }
+    try
+    {
+      const token = require("./createJWT.js");
+      ret = token.createToken(fn, ln, id);
+    }
+    catch(e)
+    {
+      ret = { "error" : e.message };
+      res.status(500).json(ret);
+    }
   }
   else
   {
@@ -73,10 +75,10 @@ router.post('/login', async (req, res, next) =>
   }
 
   //Return token
-  //res.status(200).json(ret);
+  res.status(200).json(ret);
 
    // View (non-tokenized) results in postman
-   res.status(200).json(results);
+   // res.status(200).json(results);
 
 });
 
@@ -92,22 +94,22 @@ router.post('/addUser', async (req, res, next) =>
 	// Commented out for easy testing.
     //var md5 = crypto.createHash('md5').update(password).digest('hex');
 
-    // try
-    // {
-    //   if( token.isExpired(jwtToken))
-    //   {
-    //     error = 'The JWT is no longer valid';
-    //     var r = { "error" : error, "jwtToken" : ''};
-    //     console.log(error);
-    //     res.status(200).json(r);
-	//
-    //   }
-	//
-    // }
-    // catch(e)
-    // {
-    //   console.log(e.message);
-    // }
+    try
+    {
+      if( token.isExpired(jwtToken))
+      {
+        error = 'The JWT is no longer valid';
+        var r = { "error" : error, "jwtToken" : ''};
+        console.log(error);
+        res.status(200).json(r);
+
+      }
+
+    }
+    catch(e)
+    {
+      console.log(e.message);
+    }
 
     var flag = 0;
 
@@ -144,15 +146,15 @@ router.post('/addUser', async (req, res, next) =>
 
     var refreshedToken = null;
 
-    // try
-    // {
-    //   refreshedToken = token.refresh(jwtToken);
-    // }
-    // catch(e)
-    // {
-    //   console.log(e.message);
-    //   res.status(500);
-    // }
+    try
+    {
+      refreshedToken = token.refresh(jwtToken);
+    }
+    catch(e)
+    {
+      console.log(e.message);
+      res.status(500);
+    }
 
 
     var ret = { "error": error, jwtToken: refreshedToken };
@@ -218,6 +220,85 @@ router.post('/search', async (req, res, next) =>
 
 	// Testing comments
 	// console.log(ret);
+	// res.status(200).json(ret);
+
+});
+
+router.post('/saveMove', async (req, res, next) =>
+{
+	/// FUNCTION: Add an ingredient to User's Pantry
+	// incoming: [JSON Object containing]: userId (login), ingredientID (from external api), quantity
+	// outgoing: error
+
+	var err = '';
+	const { login, id } = req.body;
+
+	// user = new User({Login:login});
+	// move = new Transitions({Name:name});
+	//
+	// user.Transitions_List.push(move);
+	//user.save(callback);
+
+	var objectId = mongoose.Types.ObjectId(id);
+
+	try
+	{
+		// User.findOne({Login:login})
+		// 	.populate('Transitions_List').exec(function(err, user){
+		// 		if(err) return handleError(err);
+		// 		console.log(user);
+		// 	})
+
+		const newOne = await User.findOneAndUpdate(
+		  { Login: login },
+		   	// Transitions_List: name}
+		  	// .populate('Transitions').exec((err, transitions) => {
+			// 	console.log("Populated: " + transitions);
+			// }));
+
+		  { $push: { Transitions_List: objectId } },
+		  { upsert: true },
+		  function (error, success) {
+			if(error) {
+			  console.log("ERROR: " + error);
+			  //callback(error);
+			} else {
+			  console.log("SUCCESS: " + success);
+			}
+		 });
+
+	}
+	catch(e)
+	{
+
+	 err = e.toString();
+
+	}
+
+	/*
+	var refreshedToken = null;
+	try
+	{
+		 refreshedToken = token.refresh(jwtToken);
+	}
+	catch(e)
+	{
+		 console.log(e.message);
+	}
+	*/
+
+	//var ret = { error: error, jwtToken: refreshedToken };
+	try{
+		const updated = await User.findOne({ Login : login });
+		console.log(updated);
+		res.status(200).send(updated);
+	} catch(e) {
+		error = e.message;
+		let ret = { error : error };
+		res.status(200).send(ret);
+	}
+
+	// let ret = { error: err};
 	// res.status(200).json(ret);
 
 });
