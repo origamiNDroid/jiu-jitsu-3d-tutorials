@@ -25,10 +25,13 @@ router.post('/todos', (req, res, next) => {
   }
 });
 
-router.delete('/todos/:id', (req, res, next) => {
-  Todo.findOneAndDelete({ _id: req.params.id })
-    .then((data) => res.json(data))
-    .catch(next);
+router.delete('/delete/:Login', async (req, res, next) => {
+  User.findOneAndDelete({Login: req.params.Login}),
+    (err, result) => {
+      if (err) return res.send(500, err)
+      console.log('got deleted');
+      //res.redirect('/');
+  }
 });
 
 router.post('/login', async (req, res, next) =>
@@ -302,5 +305,22 @@ router.post('/saveMove', async (req, res, next) =>
 	// res.status(200).json(ret);
 
 });
+
+/*app.patch('/user/:id', async (req, res, next) => {
+  try {
+    const updated = await User.updateOne(
+      {_id = req.params.id},
+      { $set: {FirstName: req.body.FirstName} },
+      { $set: {LastName: req.body.LastName}},
+      { $set: {Login: req.body.Login}},
+      { $set: {Email: req.body.Email}},
+    )
+
+    res.json(updated)
+
+  } catch (err) {
+    console.log(err)
+  }
+});*/
 
 module.exports = router;
