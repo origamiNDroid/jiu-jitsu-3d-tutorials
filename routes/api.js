@@ -133,6 +133,23 @@ router.post('/addUser', async (req, res, next) =>
 
     }
 
+	const mailer = require("@sendgrid/mail");
+	mailer.setApiKey("SENDGRID_API_KEY");
+
+	rand = Math.floor((Math.random() * 100) + 54);
+
+	const msg = {
+	  to: newUser.Email,
+	  from: "jiujitsu3dtutorials@gmail.com",
+	  subject: "Jiu-Jitsu 3D Tutorials: Email Verification",
+	  text:"Thanks for joining Jiu-Jitsu 3D Tutorials! \n\n Please verify your email by clicking the link:\n http:\/\/" + req.headers.host + "\/confirmation\/" + user.email + "\/" + rand + "\n\n Thank you!\n"
+	  };
+	  //console.log(newUser.email);
+	  mailer.send(msg).then(() => {
+		console.log('Message sent')
+	  }).catch((error) => {
+		//console.log(error.response.body)
+	  })
 
     var refreshedToken = null;
 
