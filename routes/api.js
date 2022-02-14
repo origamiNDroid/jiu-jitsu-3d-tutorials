@@ -6,32 +6,18 @@ const Todo = require('../models/todo');
 const Transitions = require("../models/transitions.js");
 const User = require("../models/user.js");
 
-router.get('/todos', (req, res, next) => {
-  // This will return all the data, exposing only the id and action field to the client
-  Todo.find({}, 'action')
-    .then((data) => res.json(data))
-    .catch(next);
-});
 
-router.post('/todos', (req, res, next) => {
-  if (req.body.action) {
-    Todo.create(req.body)
-      .then((data) => res.json(data))
-      .catch(next);
-  } else {
-    res.json({
-      error: 'The input field is empty',
-    });
-  }
-});
+router.post('/delete', async (req, res, next) => {
 
-router.delete('/delete/:Login', async (req, res, next) => {
-  User.findOneAndDelete({Login: req.params.Login}),
-    (err, result) => {
-      if (err) return res.send(500, err)
-      console.log('got deleted');
-      //res.redirect('/');
-  }
+  const { login } = req.body;
+
+  const results = await User.findOneAndDelete({Login: login})
+  .then((ret) => {
+	  console.log(ret);
+	  res.status(200).json(ret);
+  }).catch((err =>
+	  console.log(err)
+  ));
 });
 
 router.post('/login', async (req, res, next) =>
@@ -146,6 +132,7 @@ router.post('/addUser', async (req, res, next) =>
       res.status(500);
 
     }
+
 
     var refreshedToken = null;
 
@@ -322,5 +309,143 @@ router.post('/saveMove', async (req, res, next) =>
     console.log(err)
   }
 });*/
+
+app.get('/verify', function(req,res){
+  console.log(req.protocol + "://" +req.get('host')) == ("http://" + host);
+  if((req.protocol + "://" + req.get('host')) == ("http://" + host))
+  {
+	if(req.query.id == rand)
+	{
+	  console.log("email is verified");
+	  res.end("<h1>Email has been successfully verified<h1>");
+	}
+	else {
+	  console.log("email is not verified");
+	  res.end("<h1>Email has NOT been successfully verified<h1>");
+	}
+  }
+  else {
+	res.end("<h1>Source Unknown<h1>");
+  }
+});
+
+app.post('/forgot', function(req, res, next){
+  async.waterfall([
+	function(done){
+	  crypto.randomBytes(20, function(err, buf){
+		var token =buf.toString('hex');
+		done(err, token);
+	  });
+	},
+	function(token, done){
+	  User.findOne({ email: req.body.email}, function(err, user){
+		if(!user){
+		  req.flash('error', 'No account was found with that email. ');
+		  return res.redirect('/forgot');
+		}
+
+		user.resetPasswordToken = token;
+		user.resetPasswordExpires = Date.now() + 3600000;
+
+		user.save(function(err){
+		  done(err, token, user);
+		});
+	  });
+	},
+	function(token, user, done){
+
+	  const mailer = require("@sendgrid/mail");
+	  mailer.setApiKey("SENDGRID_API_KEY");
+
+	  const msg = {
+		to: user.email,
+		from: "jiujitsu3dtutorials@gmail.com",
+		subject: "JiuJitsu 3D Tutorials: Password Reset",
+		text:"Here is your password reset link: \n\n Please reset by clicking the link:\n http://" + req.headers.host + "/reset/" + token + "\n\n Thank you!\n"
+		};
+		//console.log(newUser.email);
+		mailer.send(msg).then(() => {
+		  console.log('Message sent')
+		}).catch((error) => {
+		  //console.log(error.response.body)
+		})
+	}
+
+  ], function(err){
+	console.log('this err' + ' ' + err)
+	res.redirect('/login');
+  });
+});
+
+app.get('/forgot', function(req, res){
+  res.render('forgot',{
+	User: req.user
+  });
+});
+
+app.get('/reset/:token', function(req, res){
+  User.findOne({resetPasswordToken: req.params.token, resetPasswordExpires:{$gt: Date.now()}}, function(err,user){
+	console.log(user);
+
+	if(!user){
+	  req.flash('error', 'Password reset token is invalid or has expired.');
+	  return res.redirect('/forgot');
+	}
+	res.render('reset', {
+	  User: req.user
+	});
+  });
+});
+
+app.post('/reset/:token', function(req, res){
+  async.waterfall([
+	function(done){
+	  User.findOne({ resetPasswordToken: req.body.token, resetPasswordExpires:{$gt:Date.now()}}, function(err, user,next){
+		if(!user){
+		  req.flash('error', 'Password reset token is invalid or has expired');
+		  return res.redirect('back');
+		}
+
+		user.password = req.body.password;
+		user.resetPasswordToken = undefined;
+		user.resetPasswordExpires = undefined;
+		console.log('password' + user.password + 'and the user is' + user)
+
+		user.save(function(err){
+		  if(err){
+			console.log('err1');
+			return resdirect('back');
+		  }else{
+			console.log("err 2");
+			req.logIn(user, function(err){
+			  done(err,user);
+			});
+		  }
+		});
+	  });
+	},
+
+	function(user, done){
+
+	  const mailer = require("@sendgrid/mail");
+	  mailer.setApiKey("SENDGRID_API_KEY");
+
+	  const msg = {
+		to: user.email,
+		from: "jiujitsu3dtutorial@gmail.com",
+		subject: "JiuJitsu Tutorials: Password has been changed",
+		text:"Here is your password reset confirmation."
+		};
+		//console.log(newUser.email);
+		mailer.send(msg).then(() => {
+		  console.log('Message sent')
+		}).catch((error) => {
+		  //console.log(error.response.body)
+		})
+	  }
+  ],function(err){
+	res.direct('/login');
+  });
+});
 
 module.exports = router;
