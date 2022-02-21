@@ -2,6 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const TransitionsSchema = new mongoose.Schema({
+  _id: {
+	  type:mongoose.Schema.Types.ObjectId,
+  },
   Name: {
     type: String,
 	required: true
@@ -21,7 +24,7 @@ const TransitionsSchema = new mongoose.Schema({
   Comments: {
 	type: Array,
   },
-  Rating: {
+  Ratings: {
 	type: Array,
   },
   Description: {

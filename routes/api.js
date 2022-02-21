@@ -239,30 +239,13 @@ router.post('/saveMove', async (req, res, next) =>
 
 	var err = '';
 	const { login, id } = req.body;
-
-	// user = new User({Login:login});
-	// move = new Transitions({Name:name});
-	//
-	// user.Transitions_List.push(move);
-	//user.save(callback);
-
 	var objectId = mongoose.Types.ObjectId(id);
 
 	try
 	{
-		// User.findOne({Login:login})
-		// 	.populate('Transitions_List').exec(function(err, user){
-		// 		if(err) return handleError(err);
-		// 		console.log(user);
-		// 	})
 
 		const newOne = await User.findOneAndUpdate(
 		  { Login: login },
-		   	// Transitions_List: name}
-		  	// .populate('Transitions').exec((err, transitions) => {
-			// 	console.log("Populated: " + transitions);
-			// }));
-
 		  { $push: { Transitions_List: objectId } },
 		  { upsert: true },
 		  function (error, success) {
@@ -327,7 +310,7 @@ router.post('/saveMove', async (req, res, next) =>
   }
 });*/
 
-app.get('/verify', function(req,res){
+router.get('/verify', function(req,res){
   console.log(req.protocol + "://" +req.get('host')) == ("http://" + host);
   if((req.protocol + "://" + req.get('host')) == ("http://" + host))
   {
@@ -346,7 +329,7 @@ app.get('/verify', function(req,res){
   }
 });
 
-app.post('/forgot', function(req, res, next){
+router.post('/forgot', function(req, res, next){
   async.waterfall([
 	function(done){
 	  crypto.randomBytes(20, function(err, buf){
@@ -394,13 +377,13 @@ app.post('/forgot', function(req, res, next){
   });
 });
 
-app.get('/forgot', function(req, res){
+router.get('/forgot', function(req, res){
   res.render('forgot',{
 	User: req.user
   });
 });
 
-app.get('/reset/:token', function(req, res){
+router.get('/reset/:token', function(req, res){
   User.findOne({resetPasswordToken: req.params.token, resetPasswordExpires:{$gt: Date.now()}}, function(err,user){
 	console.log(user);
 
@@ -414,7 +397,7 @@ app.get('/reset/:token', function(req, res){
   });
 });
 
-app.post('/reset/:token', function(req, res){
+router.post('/reset/:token', function(req, res){
   async.waterfall([
 	function(done){
 	  User.findOne({ resetPasswordToken: req.body.token, resetPasswordExpires:{$gt:Date.now()}}, function(err, user,next){
@@ -481,7 +464,6 @@ router.post('/rating', async (req, res, next) =>
 	{
 		const newOne = await Transitions.findOneAndUpdate(
 		  { _id: objectId },
-
 		  { $push: { Ratings: rate } },
 		  { upsert: true },
 		  function (error, success) {
@@ -501,7 +483,7 @@ router.post('/rating', async (req, res, next) =>
 	}
 
 	try{
-		const updated = await User.findOne({ _id : objectId });
+		const updated = await Transitions.findOne({ _id : objectId });
 		console.log(updated);
 		res.status(200).send(updated);
 	} catch(e) {
