@@ -465,4 +465,50 @@ app.post('/reset/:token', function(req, res){
   });
 });
 
+router.post('/rating', async (req, res, next) =>
+{
+	// FUNCTION: Add rating to a transition
+	// Incoming: [JSON Object containing]: moveID, rating
+	// Outgoing: error
+
+	var err = '';
+	const { id, rating } = req.body;
+
+	var objectId = mongoose.Types.ObjectId(id);
+  	var rate = parseInt(rating);
+
+	try
+	{
+		const newOne = await Transitions.findOneAndUpdate(
+		  { _id: objectId },
+
+		  { $push: { Ratings: rate } },
+		  { upsert: true },
+		  function (error, success) {
+			if(error) {
+			  console.log("ERROR: " + error);
+			} else {
+			  console.log("SUCCESS: " + success);
+			}
+		 });
+
+	}
+	catch(e)
+	{
+
+	 err = e.toString();
+
+	}
+
+	try{
+		const updated = await User.findOne({ _id : objectId });
+		console.log(updated);
+		res.status(200).send(updated);
+	} catch(e) {
+		error = e.message;
+		let ret = { error : error };
+		res.status(200).send(ret);
+	}
+});
+
 module.exports = router;
