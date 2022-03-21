@@ -462,6 +462,14 @@ router.post('/rating', async (req, res, next) =>
 
 	try
 	{
+		if (rate > 5)
+		{
+			error = "Value must be below 5.";
+			let ret = { error : error };
+			res.status(200).send(ret);
+			return;
+		}
+		
 		const newOne = await Transitions.findOneAndUpdate(
 		  { _id: objectId },
 		  { $push: { Ratings: rate } },
