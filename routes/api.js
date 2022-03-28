@@ -293,22 +293,40 @@ router.post('/saveMove', async (req, res, next) =>
 
 });
 
-/*app.patch('/user/:id', async (req, res, next) => {
-  try {
-    const updated = await User.updateOne(
-      {_id = req.params.id},
-      { $set: {FirstName: req.body.FirstName} },
-      { $set: {LastName: req.body.LastName}},
-      { $set: {Login: req.body.Login}},
-      { $set: {Email: req.body.Email}},
-    )
+router.post('/update', async (req, res, next) => {
+	const {login, firstName, lastName, email} = req.body;
 
-    res.json(updated)
+	try {
+		const updated = await User.findOneAndUpdate(
+			{Login: login},
+			{
+				$set: {
+					FirstName: firstName,
+					LastName: lastName,
+					Email: email
+				}
+			},
+			function (error, success) {
+				if(error) {
+				  console.log("ERROR: " + error);
+				} else {
+				  console.log("SUCCESS: " + success);
+				}
+			 });
+	} catch (err) {
+	console.log(err)
+	}
 
-  } catch (err) {
-    console.log(err)
-  }
-});*/
+	try{
+		const updated = await User.findOne({Login : login});
+		console.log(updated);
+		res.status(200).send(updated);
+	} catch(e) {
+		error = e.message;
+		let ret = { error : error };
+		res.status(200).send(ret);
+	}
+});
 
 router.get('/verify', function(req,res){
   console.log(req.protocol + "://" +req.get('host')) == ("http://" + host);
