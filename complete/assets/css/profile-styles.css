@@ -72,6 +72,11 @@ body {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+.text-info {
+  font-size: 1rem;
+  color: black;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
 hr {
   margin: 1rem 0;
@@ -4520,6 +4525,13 @@ fieldset:disabled .btn {
 .card-body {
   flex: 1 1 auto;
   padding: 1rem 1rem;
+}
+
+.card-body-dashboard {
+  flex: 1 1 auto;
+  padding: 1rem 1rem;
+  text-align: center;
+  background-color: #171c30 ;
 }
 
 .card-body-edit {
@@ -17775,12 +17787,31 @@ label,
   background-image: linear-gradient(
     195deg,
     hsl(0, 61%, 50%) 0%,
-    hsl(210, 79%, 45%) 100%
+    #171c30 75%
   );
 }
 
+.bg-gradient-primary1 {
+  background-image: linear-gradient(
+    195deg,
+     #171c30 0%,
+     hsl(0, 61%, 50%) 270%
+  );
+}
+.scroll-info{
+  margin:5px;
+  padding:5px;
+  width: 675px;
+  height: 300px;
+  overflow: auto;
+  text-align:justify;
+ }
 .bg-gradient-dark {
-  background-image: linear-gradient(195deg, #1a2035, #323a54);
+  background-image: linear-gradient(195deg, #000, #171c30);
+}
+
+.bg-gradient-dark1 {
+  background-image: linear-gradient(195deg, #171c30,  #000);
 }
 
 .bg-gradient-faded-primary {

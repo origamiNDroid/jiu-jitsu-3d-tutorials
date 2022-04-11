@@ -60,61 +60,6 @@
    }
  }
  
- .dropdown {
-  float: left;
-  overflow: hidden;
-}
-
-.dropdown .dropbtn {
-  font-size: 16px;  
-  border: none;
-  outline: none;
-  color: white;
-  padding: 14px 16px;
-  background-color: inherit;
-  font-family: inherit;
-  margin: 0;
-}
-
-.navbar a:hover, .dropdown:hover .dropbtn {
-  background-color: red;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.dropdown-content a {
-  float: none;
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-}
-
-.dropdown-content a:hover {
-  background-color: #ddd;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
- .scroll-info{
-  margin:5px;
-  padding:5px;
-  width: 675px;
-  height: 300px;
-  overflow: auto;
-  text-align:justify;
- }
-
  body {
    margin: 0;
    font-family: var(--bs-body-font-family);
@@ -126,6 +71,11 @@
    background-color: var(--bs-body-bg);
    -webkit-text-size-adjust: 100%;
    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+ }
+ .text-info {
+   font-size: 1rem;
+   color: black;
+   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
  }
  
  hr {
@@ -159,9 +109,6 @@
    color: #fff;
  }
  
- h6.info{
-  color: #fff;
- }
  h1,
  .h1 {
    font-size: calc(1.425rem + 2.1vw);
@@ -664,7 +611,7 @@
  
  .img-fluid {
    max-width: 100%;
-   max-height: 100%;
+   height: auto;
  }
  
  .img-thumbnail {
@@ -4579,13 +4526,13 @@
    flex: 1 1 auto;
    padding: 1rem 1rem;
  }
-
+ 
  .card-body-dashboard {
-  flex: 1 1 auto;
-  padding: 1rem 1rem;
-  text-align: center;
-  background-color: #171c30 ;
-}
+   flex: 1 1 auto;
+   padding: 1rem 1rem;
+   text-align: center;
+   background-color: #171c30 ;
+ }
  
  .card-body-edit {
    background-color: #1a2035;
@@ -17840,12 +17787,31 @@
    background-image: linear-gradient(
      195deg,
      hsl(0, 61%, 50%) 0%,
-     hsl(210, 79%, 45%) 100%
+     #171c30 75%
    );
  }
  
+ .bg-gradient-primary1 {
+   background-image: linear-gradient(
+     195deg,
+      #171c30 0%,
+      hsl(0, 61%, 50%) 270%
+   );
+ }
+ .scroll-info{
+   margin:5px;
+   padding:5px;
+   width: 675px;
+   height: 300px;
+   overflow: auto;
+   text-align:justify;
+  }
  .bg-gradient-dark {
-   background-image: linear-gradient(195deg, #1a2035, #323a54);
+   background-image: linear-gradient(195deg, #000, #171c30);
+ }
+ 
+ .bg-gradient-dark1 {
+   background-image: linear-gradient(195deg, #171c30,  #000);
  }
  
  .bg-gradient-faded-primary {
@@ -20961,12 +20927,6 @@
  
  .text-sm {
    font-size: 0.875rem !important;
- }
-
- .text-info {
-   font-size: 1rem;
-   color: black;
-   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
  }
  
  .text-xs {
