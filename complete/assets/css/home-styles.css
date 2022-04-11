@@ -118,8 +118,8 @@ body.dark-theme {
   --first-color-dark: hsl(var(--hue), 8%, 20%);
   --title-color: hsl(var(--hue), 4%, 95%);
   --text-color: hsl(var(--hue), 4%, 75%);
-  --body-color: hsl(var(--hue), 8%, 12%);
-  --container-color: hsl(var(--hue), 8%, 16%);
+  --body-color: #171c30;
+  --container-color: #171c30;
 }
 
 /*========== Button Dark/Light ==========*/
