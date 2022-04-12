@@ -1,0 +1,22 @@
+@import url("./profile-styles.css");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+.navbar-brand {
+    font-family: 'Poppins';
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: -1px;
+    display: inline-flex;
+    align-items: center;
+    column-gap: 0.5rem;
+    transition: 0.3s;
+}
+
+body {
+    background: scroll;
+    background-image: url(../img/1.jpg);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
