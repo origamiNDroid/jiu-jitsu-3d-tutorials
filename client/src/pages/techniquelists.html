@@ -1,0 +1,138 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+<div class="row">
+    <div class = "col">
+        <div class ="card card-body bg-dark">
+            <input id="search-input" class="form-control" type="text">
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive">
+<table class="table table-hover table-striped table-dark">
+    <thead class="thead-dark">
+    <tr>
+        <th  class="fw-bold mb-1" data-colname="id" data-order="desc">ID &#9650</th>
+        <th  class="fw-bold mb-3" data-colname="transtion" data-order="desc">Transition &#9650</th>
+        <th  data-colname="tags" data-order="desc">Tags &#9650</th>
+    </tr>
+    </thead>
+    <tbody id="myTable">
+        
+    </tbody>
+</table>
+</div>
+
+<script>
+var myArray = [
+    {'id':'1', 'transition':'Double Leg', 'tags':'Beginner, Takedown, Dangerous, Strong'},
+    {'id':'2', 'transition':'Hip Throw', 'tags':'Intermediate, Takedown, Dangerous'},
+    {'id':'3', 'transition':'Inside Trip', 'tags':'Beginner, Takedown, Dangerous'},
+    {'id':'4', 'transition':'Toreando Pass', 'tags':'Beginner, Guard Pass, Strong'},
+    {'id':'5', 'transition':'Standing Knee Cut Pass', 'tags':'Beginner, Guard Pass'},
+    {'id':'6', 'transition':'Tripod Sweep', 'tags':'Beginner, Sweep'},
+    {'id':'7', 'transition':'Guard Break', 'tags':'Beginner, Guard Pass, Strong'},
+    {'id':'8', 'transition':'Standing Guard Break', 'tags':'Intermediate, Guard Pass'},
+    {'id':'9', 'transition':'Armbar from Guard', 'tags':'Beginner, Dangerous, Submission'},
+    {'id':'10', 'transition':'Triangle from Guard', 'tags':'Beginner, Dangerous, Submission'},
+    {'id':'11', 'transition':'Omoplata from Guard', 'tags':'Intermediate, Dangerous, Submission, Flexible'},
+    {'id':'12', 'transition':'Kimura from Guard', 'tags':'Beginner, Dangerous, Submission, Strong'},
+    {'id':'13', 'transition':'Scissor Sweep', 'tags':'Beginner, Sweep'},
+    {'id':'14', 'transition':'Bump Sweep', 'tags':'Beginner, Sweep'},
+    {'id':'15', 'transition':'Frame Guard Triangle', 'tags':'Beginner, Dangerous, Submission'},
+    {'id':'16', 'transition':'Hook Sweep', 'tags':'Beginner, Sweep'},
+    {'id':'17', 'transition':'Pull Closed Guard', 'tags':'Beginner'},
+    {'id':'18', 'transition':'Knee Cut Pass', 'tags':'Beginner, Guard Pass'},
+    {'id':'19', 'transition':'Stepover to Half', 'tags':'Beginner, Guard Pass'},
+    {'id':'20', 'transition':'Half Guard Kimura', 'tags':'Beginner, Dangerous, Submission, Strong'},
+    {'id':'21', 'transition':'Half Guard Americana', 'tags':'Beginner, Dangerous, Submission, Strong'},
+    {'id':'22', 'transition':'Half Guard Sweep', 'tags':'Beginner, Sweep'},
+    {'id':'23', 'transition':'Half Guard Pass Side', 'tags':'Beginner, Guard Pass'},
+    {'id':'24', 'transition':'Half Guard Pass Mount', 'tags':'Beginner, Guard Pass'},
+    {'id':'25', 'transition':'Mount Americana', 'tags':'Beginner, Dangerous, Submission, Strong'},
+    {'id':'26', 'transition':'Mount Armbar', 'tags':'Beginner, Dangerous, Submission'},
+    {'id':'27', 'transition':'Mount Arm Triangle', 'tags':'Beginner, Dangerous, Submission'},
+    {'id':'28', 'transition':'Mount Triangle', 'tags':'Intermediate, Dangerous, Submission, Flexible'},
+    {'id':'29', 'transition':'Mount Escape', 'tags':'Beginner'},
+    {'id':'30', 'transition':'Mount Sweep', 'tags':'Beginner, Sweep'},
+    {'id':'31', 'transition':'Recover from Side', 'tags':'Beginner'},
+    {'id':'32', 'transition':'Arm Drag', 'tags':'Beginner'},
+    {'id':'33', 'transition':'Back Take from Mount', 'tags':'Beginner'},
+    {'id':'34', 'transition':'Rear Naked Choke', 'tags':'Beginner, Dangerous, Submission'},
+    {'id':'35', 'transition':'Armbar from Back', 'tags':'Intermediate, Dangerous, Submission'},
+    {'id':'36', 'transition':'Back Escape to Guard', 'tags':'Beginner'},
+    {'id':'37', 'transition':'Back Escape to Mount', 'tags':'Beginner'},
+    {'id':'38', 'transition':'Bottom Half Kimura', 'tags':'Intermediate, Dangerous, Submission, Strong'},
+    {'id':'39', 'transition':'Standing Guillotine', 'tags':'Beginner, Dangerous, Submission'},
+    {'id':'40', 'transition':'Flying Armbar', 'tags':'Advanced, Dangerous, Submission'},
+
+]
+
+$('#search-input').on('keyup', function(){
+    var value=$(this).val()
+    console.log('Value:', value)
+    var data = searchtable(value,myArray)
+    buildTable(data)
+})
+buildTable(myArray)
+
+
+
+ $('th').on('click', function(){
+     var column = $(this).data('coltransition')
+     var order = $(this).data('order')
+     var text = $(this).html()
+     text = text.substring(0, text.length - 1);
+     
+     
+     
+     if (order == 'desc'){
+        myArray = myArray.sort((a, b) => a[column] > b[column] ? 1 : -1)
+        $(this).data("order","asc");
+        text += '&#9660'
+     }else{
+        myArray = myArray.sort((a, b) => a[column] < b[column] ? 1 : -1)
+        $(this).data("order","desc");
+        text += '&#9650'
+     }
+
+    $(this).html(text)
+    buildTable(myArray)
+    })
+
+
+   
+ 
+    
+function searchtable(value, data){
+    var filteredData = []
+    for(var i = 0; i < data.length; i++){
+        value = value.toLowerCase()
+        var transition = data[i].transition.toLowerCase()
+        var tags = data[i].tags.toLowerCase()
+        if(transition.includes(value) || tags.includes(value)){
+            filteredData.push(data[i])
+        }
+    }
+    return filteredData;
+}
+function buildTable(data){
+    var table = document.getElementById('myTable')
+    table.innerHTML = ''
+    for (var i = 0; i < data.length; i++){
+        var colid = `id-${i}`
+        var coltransition = `transition-${i}`
+        var coltags = `tags-${i}`
+
+        var row = `<tr>
+                        <td>${data[i].id}</td>
+                        <td>${data[i].transition}</td>
+                        <td>${data[i].tags}</td>
+                   </tr>`
+        table.innerHTML += row
+    }
+}
+
+</script>

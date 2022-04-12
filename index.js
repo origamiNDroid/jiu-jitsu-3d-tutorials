@@ -5,6 +5,7 @@ const routes = require('./routes/api');
 require('dotenv').config();
 
 const app = express();
+const router = express.Router();
 
 const port = process.env.PORT || 5000;
 
@@ -40,8 +41,32 @@ app.use(express.static(path.join(__dirname, "client", "build")));
 
 // ...
 // Right before your app.listen(), add this:
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client", "public", "index.html"));
+router.get("/dashboard", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "public", "client/src/pages/dashboard.html"));
+});
+
+router.get("/editprofile", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "public", "client/src/pages/editprofile.html"));
+});
+
+router.get("/forgotpassword", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "public", "client/src/pages/forgotpassword.html"));
+});
+
+router.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "public", "client/src/pages/home.html"));
+});
+
+router.get("/profile", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "public", "client/src/pages/profile.html"));
+});
+
+router.get("/sigin", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "public", "client/src/pages/sigin.html"));
+});
+
+router.get("/techniquelist", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "public", "client/src/pages/techniquelist.html"));
 });
 
 app.listen(port, () => {
