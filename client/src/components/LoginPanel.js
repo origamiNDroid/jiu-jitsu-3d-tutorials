@@ -19,7 +19,7 @@ function LoginPanel() {
                     </button>
                 </Link>
             </div>
-            {/* <img src={'./img/Picture2.png'} className={`${styles.image}`} alt={''} /> */}
+            <img src={'./img/Picture2.png'} className={`${styles.image}`} alt={''} />
         </div>
     </>
   )

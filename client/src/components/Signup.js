@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { json } from 'body-parser'
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 
 import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
@@ -26,7 +27,7 @@ function Signup() {
         event.preventDefault();
 
         var obj = {login:regUsername.value, password:regPassword.value, email: regEmail.value};
-        var js = JSON.stringy(obj);
+        var js = JSON.stringify(obj);
 
         var config =
         {
@@ -72,6 +73,9 @@ function Signup() {
 
   return (
     <div id='registerDiv'>
+        <Helmet>
+            <link rel='stylesheeet' href='../assets/css/signin-style.css' />
+        </Helmet>
         <form className='sign-in-form' onSubmit={doRegister}>
             <h2 className='title'>Sign Up</h2>
             <div className='input-field'>
@@ -87,7 +91,7 @@ function Signup() {
 
             <div className='input-field'>
                 <EmailIcon className='fas'/>
-                <input type='email' placeholder='email' id='regEmail' 
+                <input type='email' placeholder='Email' id='regEmail' 
                     onChange={(e) =>
                     {
                         setRegEmail(e.target.value);

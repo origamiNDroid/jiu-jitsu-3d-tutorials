@@ -1,9 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 
 function SignupPanel() {
   return (
     <>
+        <Helmet>
+            <link rel='stylesheet' href='../assets/css/signin-style.css' />
+        </Helmet>
+        
         <div className='panel left-panel'>
             <div className='content'>
                 <h3> Already a member? </h3>
@@ -17,7 +22,7 @@ function SignupPanel() {
                 </Link>
             </div>
 
-            {/* <img src={'./img/Picture1.png'} className='image' alt='' /> */}
+            <img src={'./img/Picture1.png'} className='image' alt='' />
         </div>
     </>
   )

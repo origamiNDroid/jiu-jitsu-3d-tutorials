@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 
-import styles from '../assets/css/forgotpassword-style.css'
-import EmailIcon from '@mui/icons-material/Email';
+import styles from '../assets/css/forgotpassword-style.module.css'
+
+import {RiMailFill} from 'react-icons/ri';
 
 function ForgotPassword() {
 
     var bp = require('../components/Path.js');
     var storage = require('../tokenStorage.js');
 
-    var valEmail;
+    const [valEmail, setEmail] = useState('');
 
     const [message, setMessage] = useState('');
     const resetPassword = async event =>
@@ -50,15 +51,21 @@ function ForgotPassword() {
     }
   return (
     <>
-        <div className="container">
-            <div className="forms-container">
-                <form action="#" className="forgot-password-form" onSubmit={resetPassword}>
-                    <h2 className="title">Forgot Password</h2>
-                    <div className="input-field">
-                    <EmailIcon fontSize='small' />
-                    <input type="email" placeholder="Email" id='valEmail'/>
+        <div className={styles.container}>
+            <div className={styles.formsContainer}>
+                <form className="forgot-password-form" onSubmit={resetPassword}>
+                    <h2 className={styles.title}>Forgot Password</h2>
+                    <div className={styles.inputField}>
+                    <RiMailFill />
+                    <input type="email" placeholder="Email" id='valEmail'
+                        onChange={(e) =>
+                        {
+                            setEmail(e.target.value);
+                        }}>
+                            
+                        </input>
                     </div>
-                    <input type="submit" value="Reset" className="btn solid" />
+                    <input type="submit" value="Reset" className={`${styles.btn} ${styles.solid}`} />
                 </form>
             </div>
         </div>
