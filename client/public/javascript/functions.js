@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import axios from 'axios';
 
 function Login()
@@ -10,7 +9,6 @@ function Login()
     var loginName;
     var loginPassword;
 
-    const [message,setMessage] = useState('');
 
     const doLogin = async event =>
     {
@@ -36,11 +34,11 @@ function Login()
             var res = response.data;
             if (res.error)
             {
-                setMessage('User/Password combination incorrect');
+                console.log(res.error)
             }
             else
             {
-				setMessage("Its Working!");
+				console.log(res)
                 // storage.storeToken(res);
                 // var jwt = require('jsonwebtoken');
 				//
