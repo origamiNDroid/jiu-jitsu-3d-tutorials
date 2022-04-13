@@ -11,7 +11,7 @@ async function Login(){
 
 try
 {
-	const response = await fetch('https://jiu-jitsu-3d-tutorials.herokuapp.com/api/login',
+	const response = await fetch('/login',
 	{
 		method:'POST',
 		body:js,
