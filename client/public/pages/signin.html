@@ -29,7 +29,7 @@
               <input id="password" type="password" placeholder="Password" />
             </div>
             <a href="forgotpassword.html">Forgot Password?</a>
-            <input type="submit" value="Login" class="btn solid" />
+            <input id="loginSubmit" onClick="login()" type="submit" value="Login" class="btn solid" />
             <p class="social-text"> <br> <br> Sign in with social platforms</p>
             <div class="social-media">
               <a href="#" class="social-icon">
@@ -111,6 +111,12 @@
       </div>
     </div>
 	<script>
+	var submit = document.getElementById("loginSubmit");
+	addEventListener("click",
+	function(event){
+		event.preventDefault();
+	});
+
 	function login()
 	{
 		var un = document.getElementById("username").value;
