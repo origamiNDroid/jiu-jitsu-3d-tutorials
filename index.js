@@ -7,7 +7,7 @@ require('dotenv').config();
 console.log("1");
 
 const app = express();
-const router = express.router();
+const router = express.Router();
 
 const port = process.env.PORT || 5000;
 
