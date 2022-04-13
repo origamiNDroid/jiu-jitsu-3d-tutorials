@@ -1,5 +1,6 @@
-function Login()
-{
+export const Login = async () =>
+ async (dispatch) => {
+
 
     var bp = require('./Path.js');
     var storage = require('../tokenStorage.js');
