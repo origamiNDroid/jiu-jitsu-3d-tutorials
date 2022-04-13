@@ -16,7 +16,7 @@ let js = JSON.stringify(obj);
 
 try
 {
-	const response = await fetch('/api/login')
+	const response = await fetch('/api/login',
 	{
 		method:'POST',
 		body:js,
