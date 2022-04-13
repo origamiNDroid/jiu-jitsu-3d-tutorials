@@ -4,10 +4,8 @@ const mongoose = require('mongoose');
 const routes = require('./routes/api');
 require('dotenv').config();
 
-console.log("1");
-
 const app = express();
-const router = express.Router();
+// const router = express.Router();
 
 const port = process.env.PORT || 5000;
 
