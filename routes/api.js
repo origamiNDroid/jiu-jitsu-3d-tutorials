@@ -45,16 +45,16 @@ router.post('/login', async (req, res, next) =>
     fn = results[0].FirstName;
     ln = results[0].LastName;
 
-    try
-    {
-      const token = require("./createJWT.js");
-      ret = token.createToken(fn, ln, id);
-    }
-    catch(e)
-    {
-      ret = { "error" : e.message };
-      res.status(500).json(ret);
-    }
+    // try
+    // {
+    //   const token = require("./createJWT.js");
+    //   ret = token.createToken(fn, ln, id);
+    // }
+    // catch(e)
+    // {
+    //   ret = { "error" : e.message };
+    //   res.status(500).json(ret);
+    // }
   }
   else
   {
@@ -487,7 +487,7 @@ router.post('/rating', async (req, res, next) =>
 			res.status(200).send(ret);
 			return;
 		}
-		
+
 		const newOne = await Transitions.findOneAndUpdate(
 		  { _id: objectId },
 		  { $push: { Ratings: rate } },

@@ -1,9 +1,4 @@
-export const Login = async () =>
- async (dispatch) => {
-
-
-    var bp = require('./Path.js');
-    var storage = require('../tokenStorage.js');
+async function Login(){
 
     var loginName;
     var loginPassword;
@@ -12,7 +7,7 @@ export const Login = async () =>
 	loginPassword = document.getElementById("password").value;
 
 	let obj = {login:loginName,password:loginPassword};
-let js = JSON.stringify(obj);
+	let js = JSON.stringify(obj);
 
 try
 {
@@ -83,4 +78,4 @@ catch(e)
 
 };
 
-export default Login;
+// module.exports.Login = Login;
