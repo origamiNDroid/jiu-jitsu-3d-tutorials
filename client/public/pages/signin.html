@@ -7,10 +7,7 @@
       src="https://kit.fontawesome.com/64d58efce2.js"
       crossorigin="anonymous"
     ></script>
-	
-	<!-- Javascript - APIs -->
-	<script type="module" src="../javascript/SigninPage.js"></script>
-	<script type="module" src="../javascript/SignUpPage.js"></script>
+
 
     <link rel="stylesheet" href="../assets/css/signin-style.css" />
     <title>Sign in & Sign up Form</title>
@@ -25,11 +22,11 @@
             <h2 class="title">Sign in</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="text" placeholder="Username" />
+              <input id="username" type="text" placeholder="Username" />
             </div>
             <div class="input-field">
               <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Password" />
+              <input id="password" type="password" placeholder="Password" />
             </div>
             <a href="forgotpassword.html">Forgot Password?</a>
             <input type="submit" value="Login" class="btn solid" />
@@ -113,7 +110,45 @@
         </div>
       </div>
     </div>
+	<script>
+	function login()
+	{
+		var un = document.getElementById("username").value;
+		var ps = document.getElementById("password").value;
 
-    <script src="../assets/js/app.js"></script>
+		const https = require('https');
+
+		const data = JSON.stringify({
+			username: un,
+			password: ps
+		});
+
+		const options = {
+			hostname: 'jiu-jitsu-3d-tutorials.herokuapp.com',
+			port: '5000',
+			path: '/login',
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'Content-Length': data.length
+			}
+		};
+
+		const req = https.request(options, res => {
+			console.log('statusCode: ${res.statusCode}');
+
+			res.on('data', d => {
+				process.stdout.write(d)
+			})
+		})
+
+		req.on('error', error => {
+			console.error(error);
+		})
+
+		req.write(data);
+		req.end();
+	}
+	</script>
   </body>
 </html>

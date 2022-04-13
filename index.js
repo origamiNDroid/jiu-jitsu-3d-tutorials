@@ -62,8 +62,8 @@ app.get("/profile", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "public", "pages/profile.html"));
 });
 
-app.get("/sigin", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "public", "pages/sigin.html"));
+app.get("/signin", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "public", "pages/signin.html"));
 });
 
 app.get("/techniquelist", (req, res) => {
