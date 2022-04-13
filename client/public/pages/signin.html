@@ -111,34 +111,55 @@
       </div>
     </div>
 	<script>
-	var submit = document.getElementById("loginSubmit");
-	addEventListener("click",
-	function(event){
-		event.preventDefault();
-	});
+	import React, {useState} from 'react';
+	import axios from 'axios';
 
 	function login()
 	{
 		var un = document.getElementById("username").value;
 		var ps = document.getElementById("password").value;
 
-		const https = require('https');
+		const doLogin = asyn event =>
+		{
+			event.preventDefault();
 
-		const data = JSON.stringify({
-			username: un,
-			password: ps
-		});
+			const data = JSON.stringify({
+				username: un,
+				password: ps
+			});
 
-		const options = {
-			hostname: 'jiu-jitsu-3d-tutorials.herokuapp.com',
-			port: '5000',
-			path: '/login',
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				'Content-Length': data.length
+			const options = {
+				hostname: 'jiu-jitsu-3d-tutorials.herokuapp.com',
+				port: '5000',
+				path: '/login',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'Content-Length': data.length
+				},
+				data: data
+			};
+
+			axios(config).then(function(response)
+		{
+			var res = response.data;
+			if(res.error)
+			{
+				console.error(res.error);
 			}
-		};
+			else {
+				console.log(res);
+			}
+		})
+		.catch(function (error)
+	{
+		console.log(error);
+	})
+		}
+
+
+
+
 
 		const req = https.request(options, res => {
 			console.log('statusCode: ${res.statusCode}');
