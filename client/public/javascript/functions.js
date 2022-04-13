@@ -11,16 +11,17 @@ async function Login(){
 
 try
 {
-	const response = await fetch('https://jiu-jitsu-3d-tutorials.herokuapp.com/api/login',
+	const response = await fetch('http://jiu-jitsu-3d-tutorials.herokuapp.com/api/login',
 	{
 		method:'POST',
 		body:js,
 		headers:{'Content-Type': 'application/json','Accept': 'application/json'}
 	});
-
-	let res = JSON.parse(await response.text());
+	let r = await response.text();
+	console.log(r);
+	let res = JSON.parse(r);
 	console.log(res);
-	return {status:response.status,res:res};
+	return {};
 }
 catch(e)
 {
