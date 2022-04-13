@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 function Login()
 {
 
@@ -9,8 +7,32 @@ function Login()
     var loginName;
     var loginPassword;
 
+	loginName = document.getElementById("username").value;
+	loginPassword = document.getElementById("password").value;
 
-    const doLogin = async event =>
+	let obj = {login:loginName,password:loginPassword};
+let js = JSON.stringify(obj);
+
+try
+{
+	const response = await fetch('/api/login')
+	{
+		method:'POST',
+		body:js,
+		headers:{'Content-Type': 'application/json','Accept': 'application/json'}
+	});
+
+	let res = JSON.parse(await response.text());
+	console.log(res);
+	return {status:response.status,res:res};
+}
+catch(e)
+{
+	console.log( e.toString());
+	return {status:400,error:e.toString()}
+}
+
+    /*const doLogin = async event =>
     {
         event.preventDefault();
 
@@ -56,7 +78,7 @@ function Login()
         {
             console.log(error);
         });
-    }
+    }*/
 
 };
 
