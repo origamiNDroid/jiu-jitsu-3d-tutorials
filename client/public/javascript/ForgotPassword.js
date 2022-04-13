@@ -62,7 +62,7 @@ function ForgotPassword() {
                         {
                             setEmail(e.target.value);
                         }}>
-
+                            
                         </input>
                     </div>
                     <input type="submit" value="Reset" className={`${styles.btn} ${styles.solid}`} />
