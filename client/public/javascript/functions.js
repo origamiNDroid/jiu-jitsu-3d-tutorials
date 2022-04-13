@@ -11,7 +11,7 @@ async function Login(){
 
 try
 {
-	const response = await fetch('/login',
+	const response = await fetch('/api/login',
 	{
 		method:'POST',
 		body:js,
