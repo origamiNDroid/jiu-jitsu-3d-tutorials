@@ -71,6 +71,10 @@ app.get("/techniquelist", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "public", "pages/techniquelist.html"));
 });
 
+app.get("/", (req, res) => {
+  res.redirect('/home');
+});
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
