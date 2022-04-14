@@ -9,42 +9,47 @@ async function Login(){
 	let data = {login:loginName,password:loginPassword};
 	// let js = JSON.stringify(obj);
 
-try
-{
-	const response = fetch('/api/login',
+	try
 	{
-		method:'POST',
-		body:JSON.stringify({
-			login: loginName,
-			password: loginPassword,
-		}),
-		headers:{'Content-Type': 'application/json','Accept': 'application/json'}
-	})
-	.then(response => response.text())
-	.then((response) =>{
-		console.log('success:', data);
-	})
-	.catch((err) => {
-		console.error('Error: ', err);
-	});
-	 // console.log(response.status);
-	// let r = await response.json();
-	// console.log(r);
-	// let res = JSON.parse(r);
-	// console.log(res);
-	// return {};
-	// let res = JSON.parse(await response.text());
-	//
-    // return {status:response.status,res:res};
-	return;
-}
-catch(error)
-{
-	console.log(error);
-	return;
-	// console.log( e.toString());
-	// return {status:400,error:e.toString()}
-}
+		const response = fetch('/api/login',
+		{
+			method:'POST',
+			body:JSON.stringify({
+				login: loginName,
+				password: loginPassword,
+			}),
+			headers:{'Content-Type': 'application/json','Accept': 'application/json'}
+		})
+		.then(response => response.text())
+		.then((response) =>{
+			// var storage = require('../tokenStorage.js');
+			// storage.storeToken(res);
+            // var jwt = require('jsonwebtoken');
+			console.log('success:', data);
+			window.location.href = '/home';
+		})
+		.catch((err) => {
+			console.error('Error: ', err);
+		});
+
+		 // console.log(response.status);
+		// let r = await response.json();
+		// console.log(r);
+		// let res = JSON.parse(r);
+		// console.log(res);
+		// return {};
+		// let res = JSON.parse(await response.text());
+		//
+	    // return {status:response.status,res:res};
+		return;
+	}
+	catch(error)
+	{
+		console.log(error);
+		return;
+		// console.log( e.toString());
+		// return {status:400,error:e.toString()}
+	}
 
 
 };
