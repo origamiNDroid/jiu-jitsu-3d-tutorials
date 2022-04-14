@@ -40,21 +40,21 @@ router.post('/login', async (req, res, next) =>
 
   if( results.length > 0 )
   {
-    console.log(results)
+    // console.log(results)
     id = results[0]._id;
     fn = results[0].FirstName;
     ln = results[0].LastName;
 
-    try
-    {
-      const token = require("./createJWT.js");
-      ret = token.createToken(fn, ln, id);
-    }
-    catch(e)
-    {
-      ret = { "error" : e.message };
-      res.status(500).json(ret);
-    }
+    // try
+    // {
+    //   const token = require("./createJWT.js");
+    //   ret = token.createToken(fn, ln, id);
+    // }
+    // catch(e)
+    // {
+    //   ret = { "error" : e.message };
+    //   res.status(500).json(ret);
+    // }
   }
   else
   {

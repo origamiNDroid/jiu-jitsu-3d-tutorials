@@ -6,27 +6,42 @@ async function Login(){
 	loginName = document.getElementById("username").value;
 	loginPassword = document.getElementById("password").value;
 
-	let obj = {login:loginName,password:loginPassword};
-	let js = JSON.stringify(obj);
+	let data = {login:loginName,password:loginPassword};
+	// let js = JSON.stringify(obj);
 
 try
 {
-	const response = await fetch('http://jiu-jitsu-3d-tutorials.herokuapp.com/api/login',
+	const response = fetch('/api/login',
 	{
 		method:'POST',
-		body:js,
+		body:JSON.stringify({
+			login: loginName,
+			password: loginPassword,
+		}),
 		headers:{'Content-Type': 'application/json','Accept': 'application/json'}
+	})
+	.then(response => response.text())
+	.then((response) =>{
+		console.log('success:', data);
+	})
+	.catch((err) => {
+		console.error('Error: ', err);
 	});
-	let r = await response.text();
-	console.log(r);
-	let res = JSON.parse(r);
-	console.log(res);
-	return {};
+	 // console.log(response.status);
+	// let r = await response.json();
+	// console.log(r);
+	// let res = JSON.parse(r);
+	// console.log(res);
+	// return {};
+	// let res = JSON.parse(await response.text());
+	//
+    // return {status:response.status,res:res};
 }
-catch(e)
+catch(error)
 {
-	console.log( e.toString());
-	return {status:400,error:e.toString()}
+	console.log(error);
+	// console.log( e.toString());
+	// return {status:400,error:e.toString()}
 }
 
     /*const doLogin = async event =>
