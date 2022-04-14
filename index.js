@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const jws = require('jws');
+const jsonwebtoken = require('jsonwebtoken');
 const routes = require('./routes/api');
 const axios = require('axios');
 require('dotenv').config();
@@ -41,6 +43,9 @@ const path = require("path");
 // ... other app.use middleware
 app.use(express.static(path.join(__dirname, "client", "public")));
 
+app.use('/jsonwebtoken', express.static(path.join(__dirname, "node_modules", "jsonwebtoken")));
+app.use('/requirejs', express.static(path.join(__dirname, "node_modules", "requirejs")));
+app.use('/jws', express.static(path.join(__dirname, "node_modules", "jws")));
 // ...
 // Right before your app.listen(), add this:
 app.get("/dashboard", (req, res) => {

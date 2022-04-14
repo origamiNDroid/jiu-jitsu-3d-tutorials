@@ -1,3 +1,30 @@
+console.log("importing functions");
+
+function storeToken ( tok )
+{
+    try
+    {
+        localStorage.setItem('token_data', tok.accessToken);
+    }
+    catch(e)
+    {
+        console.log(e.message);
+    }
+}
+
+function retrieveToken()
+{
+    var ud;
+    try
+    {
+        ud = localStorage.getItem('token_data');
+    }
+    catch(e)
+    {
+        console.log(e.message);
+    }
+    return ud;
+}
 async function Login(){
 
     var loginName;
@@ -22,25 +49,21 @@ async function Login(){
 		})
 		.then(response => response.text())
 		.then((response) =>{
-			// var storage = require('../tokenStorage.js');
-			// storage.storeToken(res);
-            // var jwt = require('jsonwebtoken');
+
+			// JWT
+			// storeToken(response);
+			// var ud = jwt.decode(retrieveToken(),{complete:true});
+            // var loginName = ud.payload.loginName;
+            // var loginPassword = ud.payload.loginPassword;
+
 			console.log('success:', data);
+			localStorage.setItem('user data', data);
 			window.location.href = '/home';
 		})
 		.catch((err) => {
 			console.error('Error: ', err);
 		});
 
-		 // console.log(response.status);
-		// let r = await response.json();
-		// console.log(r);
-		// let res = JSON.parse(r);
-		// console.log(res);
-		// return {};
-		// let res = JSON.parse(await response.text());
-		//
-	    // return {status:response.status,res:res};
 		return;
 	}
 	catch(error)
@@ -95,6 +118,6 @@ catch(error)
 
 
 };
-
+export {storeToken, retrieveToken, Login, createAccount};
 
 // module.exports.Login = Login;

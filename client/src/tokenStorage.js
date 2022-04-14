@@ -1,4 +1,4 @@
-exports.storeToken = function ( tok )
+export function storeToken ( tok )
 {
     try
     {
@@ -10,7 +10,7 @@ exports.storeToken = function ( tok )
     }
 }
 
-exports.retrieveToken = function ()
+export function retrieveToken()
 {
     var ud;
     try
