@@ -27,8 +27,6 @@
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
   <!-- Nucleo Icons -->
-  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
-  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <!-- Material Icons -->
@@ -41,7 +39,7 @@
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand m-0" href="../pages/home.html" target="_blank">
+      <a class="navbar-brand m-0" href="./home" target="_blank">
         <span class="ms-1 font-weight-bold text-white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Jiu-Jitsu 3D Tutorials</span>
       </a>
     </div>
@@ -49,7 +47,7 @@
     <div class="collapse navbar-collapse  w-auto  max-height-vh-100" id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link text-white " href="../pages/dashboard.html">
+          <a class="nav-link text-white " href="./dashboard">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">dashboard</i>
             </div>
@@ -60,19 +58,11 @@
           <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white active bg-gradient-primary" href="../pages/profile.html">
+          <a class="nav-link text-white active bg-gradient-primary" href="./profile">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">person</i>
             </div>
             <span class="nav-link-text ms-1">Profile</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white " href="../pages/signin.html">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">login</i>
-            </div>
-            <span class="nav-link-text ms-1">Sign In</span>
           </a>
         </li>
       </ul>
@@ -92,28 +82,22 @@
               <input type="text" class="form-control">
             </div>
           </div>
-          <ul class="navbar-nav  justify-content-end">
+          <ul id="sign-in" class="navbar-nav  justify-content-end">
             <li class="nav-item d-flex align-items-center">
-              <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
+              <a href="./signin" class="nav-link text-body font-weight-bold px-0">
                 <i class="fa fa-user me-sm-1"></i>
                 <span class="d-sm-inline d-none">Sign In</span>
               </a>
             </li>
-            <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
-              <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
-                <div class="sidenav-toggler-inner">
-                  <i class="sidenav-toggler-line"></i>
-                  <i class="sidenav-toggler-line"></i>
-                  <i class="sidenav-toggler-line"></i>
-                </div>
-              </a>
-            </li>
-            <li class="nav-item px-3 d-flex align-items-center">
-              <a href="javascript:;" class="nav-link text-body p-0">
-                <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
-              </a>
-            </li>
-          </ul>
+		  </ul>
+			<ul id="logout" style="display: none" class="navbar-nav  justify-content-end">
+              <li class="nav-item d-flex align-items-center">
+                <a class="nav-link text-body font-weight-bold px-0">
+                  <i class="fa fa-user me-sm-1"></i>
+                  <span class="d-sm-inline d-none">Logout</span>
+                </a>
+              </li>
+            </ul>
         </div>
       </div>
     </nav>
@@ -122,32 +106,17 @@
       <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('https://img.wallpapersafari.com/desktop/1366/768/40/96/CoFDjp.jpg');">
         <span class="mask  bg-gradient-primary  opacity-6"></span>
       </div>
-      <div class="card card-body mx-3 mx-md-4 mt-n6 bg-gradient-dark1">
-        <div class="row gx-4 mb-2">
-          <div class="col-auto">
-            <div class="avatar avatar-xl position-relative">
-              <img src="../assets/img/profilepic.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
-            </div>
-          </div>
-          <div class="col-auto my-auto">
-            <div class="h-100">
-              <h5 class="mb-1">
-                Olivia Johnson
-              </h5>
-              <p class="mb-0 font-weight-normal text-sm">
-                <b>Username: </b> liv.johnson
-              </p>
-            </div>
-          </div>
-        </div>
         <div class="container-fluid py-4">
           <div class="row">
             <div class="col-md-8">
-              <div class="card">
+				<div id="not-logged" style="text-align: center;">
+					You must log in to edit your profile
+				</div>
+              <div id="logged" class="card" style="display:none;">
                 <div class="card-header pb-0">
                   <div class="d-flex align-items-center">
                     <p class="mb-0"><h6>Edit Profile</h6></p>
-                    <button class="btn btn-primary btn-sm ms-auto">Save</button>
+                    <button id="editSubmit" class="btn btn-primary btn-sm ms-auto">Save</button>
                   </div>
                 </div>
                 <div class="card-body card-body-edit">
@@ -156,63 +125,25 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Username</label>
-                        <input class="form-block" type="text" value="livJohnson">
+                        <input id="username" class="form-block" type="text">
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Email address</label>
-                        <input class="form-block" type="email" value="oliviajohnson@mail.com">
+                        <input id="email" class="form-block" type="email">
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="example-text-input" class="form-control-label">First name</label>
-                        <input class="form-block" type="text" value="Olivia">
+                        <input id="first" class="form-block" type="text">
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Last name</label>
-                        <input class="form-block" type="text" value="Johnson">
-                      </div>
-                    </div>
-                  </div>
-                  <hr class="horizontal dark">
-                  <p class="text-uppercase text-sm">Contact Information</p>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label for="example-text-input" class="form-control-label">Address</label>
-                        <input class="form-block" type="text" value="Central Florida Blvd.">
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label for="example-text-input" class="form-control-label">City</label>
-                        <input class="form-block" type="text" value="Florida">
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label for="example-text-input" class="form-control-label">Country</label>
-                        <input class="form-block" type="text" value="United States">
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label for="example-text-input" class="form-control-label">Postal code</label>
-                        <input class="form-block" type="text" value="32816">
-                      </div>
-                    </div>
-                  </div>
-                  <hr class="horizontal dark">
-                  <p class="text-uppercase text-sm">About me</p>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label for="example-text-input" class="form-control-label">About me</label>
-                        <input class="form-block" type="text" value="Excited for the new learning journey!">
+                        <input id="last" class="form-block" type="text">
                       </div>
                     </div>
                   </div>
@@ -231,7 +162,7 @@
               © <script>
                 document.write(new Date().getFullYear())
               </script> by
-              <a href="../pages/home.html" class="font-weight-bold" target="_blank">Jiu-Jitsu 3d Tutorials.</a>
+              <a href="./home" class="font-weight-bold" target="_blank">Jiu-Jitsu 3d Tutorials.</a>
             </div>
           </div>
         </div>
@@ -241,21 +172,30 @@
   <!--   Core JS Files   -->
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap.min.js"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
-  <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
-  <script>
-    var win = navigator.platform.indexOf('Win') > -1;
-    if (win && document.querySelector('#sidenav-scrollbar')) {
-      var options = {
-        damping: '0.5'
-      }
-      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-    }
+  <script type="module">
+	  import * as f from '../javascript/functions.js';
+	  var signin = document.getElementById("sign-in");
+	  var logout = document.getElementById("logout");
+	  var logged = document.getElementById("logged");
+	  var notlogged = document.getElementById("not-logged");
+	  var a = localStorage.getItem('token')
+	  if(a)
+	  {
+		  signin.style.display = "none";
+		  logout.style.display = "block";
+		  logged.style.display = "block";
+		  notlogged.style.display = "none";
+
+
+		  f.getProfile(a);
+		  var s = document.getElementById("editSubmit");
+		  s.addEventListener('click', f.update);
+	  }
+	  logout.addEventListener('click', f.logout);
   </script>
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="../assets/js/material-dashboard.min.js?v=3.0.0"></script>
 </body>
 
 </html>

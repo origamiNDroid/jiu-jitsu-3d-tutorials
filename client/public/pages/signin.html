@@ -28,7 +28,7 @@
               <i class="fas fa-lock"></i>
               <input id="password" type="password" placeholder="Password" />
             </div>
-            <a href="forgotpassword.html">Forgot Password?</a>
+            <a id="forgot-password-btn" href="/forgotpassword">Forgot Password?</a>
             <input id="loginSubmit" type="submit" value="Login" class="btn solid" />
           </form>
 
@@ -37,15 +37,23 @@
             <h2 class="title">Sign up</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="text" placeholder="Username" />
+              <input id="un" type="text" placeholder="Username" />
+            </div>
+			<div class="input-field">
+              <i class="fas fa-user"></i>
+              <input id="fn" type="text" placeholder="First Name" />
+            </div>
+			<div class="input-field">
+              <i class="fas fa-user"></i>
+              <input id="ln" type="text" placeholder="Last Name" />
             </div>
             <div class="input-field">
               <i class="fas fa-envelope"></i>
-              <input type="email" placeholder="Email" />
+              <input id="em" type="email" placeholder="Email" />
             </div>
             <div class="input-field">
               <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Password" />
+              <input id="pw" type="password" placeholder="Password" />
             </div>
             <input type="submit" value="CreateAccount" class="btn" value="Sign up" />
           </form>
@@ -81,9 +89,12 @@
       </div>
     </div>
   </body>
+  <script src="../assets/js/app.js"></script>
   <script type="module">
   	  import * as f from '../javascript/functions.js';
 	  var formL = document.getElementById("loginForm");
-	  formL.addEventListener('submit', f.Login);
+	  formL.addEventListener('submit', function(event){event.preventDefault(), f.Login();});
+	  var formS = document.getElementById("signUpForm");
+	  formS.addEventListener('submit', f.createAccount);
   </script>
 </html>

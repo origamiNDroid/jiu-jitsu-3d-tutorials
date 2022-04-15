@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Pryan3777/jiu-jitsu-3d-tutorials#readme",
   "dependencies": {
+    "@sendgrid/mail": "^7.6.2",
     "axios": "^0.26.1",
     "body-parser": "^1.19.1",
     "cors": "^2.8.5",

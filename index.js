@@ -65,7 +65,7 @@ app.get("/home", (req, res) => {
 });
 
 app.get("/profile", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "public", "pages/profile.html"));
+  res.sendFile(path.join(__dirname, "client", "public", "pages/editprofile.html"));
 });
 
 app.get("/signin", (req, res) => {

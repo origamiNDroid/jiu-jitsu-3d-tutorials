@@ -94,7 +94,6 @@ router.post('/addUser', async (req, res, next) =>
         res.status(200).json(r);
 
       }
-
     }
     catch(e)
     {
@@ -207,9 +206,10 @@ router.post('/search', async (req, res, next) =>
 	.then((ret) => {
 		console.log(ret);
 		res.status(200).json(ret);
-	}).catch((err =>
-		console.log(err)
-	));
+	}).catch((err => {
+		console.log(err);
+		res.status(500).json(err);
+	}));
 	// try
 	// {
 	//   refreshedToken = token.refresh(jwtToken);
@@ -221,6 +221,44 @@ router.post('/search', async (req, res, next) =>
 
 });
 
+router.post('/loadMove', async (req, res, next) =>
+{
+	const { token } = req.body;
+
+	try
+	{
+		const jwt = require("jsonwebtoken");
+		console.log(token);
+		const tv = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+		const userid = tv.id;
+
+		const T = await User.findOne(
+		  { _id: userid },
+		  { Transitions_List: 1 });
+		  var Transitions_List = T.Transitions_List;
+		  var r = [];
+		  console.log(Transitions_List);
+
+		 for(var x = 0; x < Transitions_List.length; x++)
+		 {
+			 var n = await Transitions.findOne(
+	 		  { _id: Transitions_List[x] });
+			  console.log("A");
+			  console.log(n);
+			  console.log("B");
+			  r.push(n);
+		 }
+		 console.log(r);
+		res.status(200).send(r);
+	}
+	catch(e)
+	{
+		error = e.message;
+		let ret = { error : error };
+		res.status(500).send(ret);
+	}
+});
+
 router.post('/saveMove', async (req, res, next) =>
 {
 	/// FUNCTION: Add an ingredient to User's Pantry
@@ -229,29 +267,25 @@ router.post('/saveMove', async (req, res, next) =>
 
 	var err = '';
 	const { Trans, token } = req.body;
-		
+	console.log(token);
+	console.log(Trans);
 	try
 	{
 		const jwt = require("jsonwebtoken");
 		console.log("1");
 		console.log(token);
 		const tv = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+		console.log(tv);
 		const userid = tv.id;
-		
+
 		await User.findOneAndUpdate(
 		  { _id: userid },
 		  { $set: { Transitions_List: [] } });
-		
-		console.log(Trans);
-		for(var x = 0; x < Trans.length; x++)
+
+		console.log(Trans.a);
+		for(var x = 0; x < Trans.a.length; x++)
 		{
-			var t = Trans[x].replace("_", " ");
-			
-			console.log(t);
-			
-			var obj = await Transitions.findOne(
-				{ Name: t }
-			);
+			var obj = Trans.a[x];
 			console.log(obj);
 			console.log(obj._id);
 		const newOne = await User.findOneAndUpdate(
@@ -259,14 +293,63 @@ router.post('/saveMove', async (req, res, next) =>
 		  { $push: { Transitions_List: obj._id } }
 		  );
 		}
-		console.log(newOne);
-		res.status(200).send(newOne);
+		res.status(200).send("Saved Moves");
 	}
 	catch(e)
 	{
 		error = e.message;
 		let ret = { error : error };
-		res.status(200).send(ret);
+		res.status(500).send(ret);
+	}
+
+	/*
+	var refreshedToken = null;
+	try
+	{
+		 refreshedToken = token.refresh(jwtToken);
+	}
+	catch(e)
+	{
+		 console.log(e.message);
+	}
+	*/
+
+	//var ret = { error: error, jwtToken: refreshedToken }
+
+	// let ret = { error: err};
+	// res.status(200).json(ret);
+
+});
+
+router.post('/getProfile', async (req, res, next) =>
+{
+	/// FUNCTION: Add an ingredient to User's Pantry
+	// incoming: [JSON Object containing]: userId (login), ingredientID (from external api), quantity
+	// outgoing: error
+
+	var err = '';
+	const { token } = req.body;
+	console.log(token);
+	try
+	{
+		const jwt = require("jsonwebtoken");
+		console.log(token);
+		const tv = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+		console.log(tv);
+		const userid = tv.id;
+
+		var user = await User.findOne(
+		  { _id: userid },
+		  { Login : 1, FirstName : 1, LastName : 1, Email : 1});
+
+		console.log(user);
+		res.status(200).send(user);
+	}
+	catch(e)
+	{
+		error = e.message;
+		let ret = { error : error };
+		res.status(500).send(ret);
 	}
 
 	/*
@@ -289,33 +372,24 @@ router.post('/saveMove', async (req, res, next) =>
 });
 
 router.post('/update', async (req, res, next) => {
-	const {login, firstName, lastName, email} = req.body;
+	const {token, data} = req.body;
 
 	try {
-		const updated = await User.findOneAndUpdate(
-			{Login: login},
-			{
-				$set: {
-					FirstName: firstName,
-					LastName: lastName,
-					Email: email
-				}
-			},
-			function (error, success) {
-				if(error) {
-				  console.log("ERROR: " + error);
-				} else {
-				  console.log("SUCCESS: " + success);
-				}
-			 });
+		const jwt = require("jsonwebtoken");
+		console.log(token);
+		const tv = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+		console.log(tv);
+		const userid = tv.id;
+
+		var user = await User.findOneAndUpdate(
+		  { _id: userid },
+		  { $set:{FirstName: data.FirstName, LastName: data.LastName, Email: data.Email, Login:data.Login}});
 	} catch (err) {
 	console.log(err)
 	}
 
 	try{
-		const updated = await User.findOne({Login : login});
-		console.log(updated);
-		res.status(200).send(updated);
+		res.status(200).send(":)");
 	} catch(e) {
 		error = e.message;
 		let ret = { error : error };

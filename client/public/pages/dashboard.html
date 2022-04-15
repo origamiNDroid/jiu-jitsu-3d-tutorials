@@ -73,9 +73,32 @@
 		  z-index: 1;
 		  display: none;
 	  }
+	  .move-box
+	  {
+		  width:80%;
+		  margin: 10px 10%;
+		  text-align: left;
+		  font-weight: bold;
+
+	  }
+	  #search-result
+	  {
+		  max-height:300px;
+		  overflow-y: scroll;
+	  }
+	  #move-buffer
+	  {
+
+	  }
+	  #move-buffer>*
+	  {
+		  text-align: center;
+		  font-weight: bold;
+		  font-size: 24px;
+	  }
   </style>
   <script type="module">
-    
+
   </script>
 </head>
 
@@ -83,7 +106,7 @@
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand m-0" href="../pages/home.html" target="_blank">
+      <a class="navbar-brand m-0" href="./home" target="_blank">
         <span class="ms-1 font-weight-bold text-white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Jiu-Jitsu 3D Tutorials</span>
       </a>
     </div>
@@ -91,7 +114,7 @@
     <div class="collapse navbar-collapse  w-auto  max-height-vh-100" id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link text-white active bg-gradient-primary" href="./pages/dashboard.html">
+          <a class="nav-link text-white active bg-gradient-primary" href="./dashboard">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">dashboard</i>
             </div>
@@ -102,19 +125,11 @@
           <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white " href="../pages/profile.html">
+          <a class="nav-link text-white " href="./profile">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">person</i>
             </div>
             <span class="nav-link-text ms-1">Profile</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white " href="../pages/signin.html">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">login</i>
-            </div>
-            <span class="nav-link-text ms-1">Sign In</span>
           </a>
         </li>
 
@@ -127,7 +142,6 @@
       <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
             <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
           </ol>
           <h6 class="font-weight-bolder mb-0">Dashboard</h6>
@@ -139,11 +153,19 @@
               <input type="text" class="form-control">
             </div>
           </div>
-          <ul class="navbar-nav  justify-content-end">
+          <ul id="sign-in" class="navbar-nav  justify-content-end">
             <li class="nav-item d-flex align-items-center">
-              <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
+              <a href="./signin" class="nav-link text-body font-weight-bold px-0">
                 <i class="fa fa-user me-sm-1"></i>
                 <span class="d-sm-inline d-none">Sign In</span>
+              </a>
+            </li>
+          </ul>
+		  <ul id="logout" style="display: none" class="navbar-nav  justify-content-end">
+            <li class="nav-item d-flex align-items-center">
+              <a class="nav-link text-body font-weight-bold px-0">
+                <i class="fa fa-user me-sm-1"></i>
+                <span class="d-sm-inline d-none">Logout</span>
               </a>
             </li>
           </ul>
@@ -181,7 +203,7 @@
             </div>
             <div class="card-body-dashboard">
               <h6 class="mb-0 ">Chart </h6>
-              <p class="text-sm ">Flow Chart Explains flow of positions</p>
+              <p class="text-sm ">Use Search Bar Below To Add Moves</p>
             </div>
           </div>
         </div>
@@ -197,11 +219,21 @@
             </div>
             <div class="card-body-dashboard">
               <h6 class="mb-0 ">Animation </h6>
-              <p class="text-sm ">3D Animation to help with better visualization</p>
+              <p class="text-sm ">Use Search Bar Below To Add Moves</p>
             </div>
           </div>
         </div>
       </div>
+	  <div class="row mb-4">
+		  <button id="play" style="width: 40%; margin:0 5%;">Play</button>
+		  <button id="pause" style="width: 40%; margin:0 5%;">Pause</button>
+		  <input style="margin:10px 5%; width: 90%;" id="jared" type="range" min="0.0" max="2.0" value="1.0" step=".25"></input>
+		  <h2 style="text-align: center;">Move List</h2>
+		  <div id="move-buffer"></div>
+		  <button style="margin:auto; width: 23%;" id="clear">Clear</button>
+		  <button style="margin:auto; width: 23%;" id="save">Save</button>
+		  <button style="margin:auto; width: 23%;" id="load">Load</button>
+	  </div>
       <div class="row mb-4">
         <div class="col-lg-8 col-md-6 mb-md-0 mb-4">
           <div class="card">
@@ -213,27 +245,8 @@
               </div>
             </div>
             <div class="card-body px-0 pb-2 bg-dark-200">
-              <div style="max-width: calc(100% - 48px);" class="card z-index-2 mt-1 mb-5 mx-4 bg-gray-500 scroll-info">
-                <p class="text-info px-4 pt-4">
-                  The hip throw, also known as the hip toss, is another fundamental takedown
-                   in grappling and is great for self-defense. The hip throw is a technique that
-                   is often first learned by beginners. The goal of this is to unbalance the opponent
-                   and their footwork and get underneath the opponent's center of gravity. There are
-                   many variations that can be adapted from this technique, but it is important to master
-                   down the basic principles of it first.
-                </p>
+              <div id="description" style="max-width: calc(100% - 48px); width: 1000000px" class="card z-index-2 mt-1 mb-5 mx-4 bg-gray-500 scroll-info">
 
-                <p class="text-info px-4 ">
-                The main principle behind the hip throw is the setup. Typically, you want the opponent’s
-                hips back while the opponent is leaning forward. This allows you to position your hip
-                underneath the opponent and pull them into the hip throw.
-                </p>
-
-                <p class="text-info px-4 ">
-                  When finishing the Hip Throw make sure to keep the opponent’s near arm trapped to pin
-                  them to the mat. To avoid getting rolled through, keep your hips low to the mat, and
-                  remain in control of your opponent.
-                </p>
               </div>
             </div>
           </div>
@@ -301,8 +314,8 @@
               </div>
 			</div>
 			<div id="search-result" class="card h-100 bg-dark-200" style="display:none;">
-              
-              
+
+
 
             </div>
           </div>
@@ -343,12 +356,15 @@
 	  import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/build/three.module.js';
     import {OrbitControls} from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/examples/jsm/controls/OrbitControls.js';
     import {GLTFLoader} from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/examples/jsm/loaders/GLTFLoader.js';
-	
-	
+
+
 	export const input = {a: []};
-	
+	export const result = {a: []};
+	export const playback = {a: 1.0};
+	export const playbackB = {a: 1.0};
+
     // takes list of moves in order, and two colors for animation sequence
-    async function playAnimations(input, colorA, colorB, playback = 1.0)
+    async function playAnimations(input)
     {
     let currentAnim = 0;
     let flag = 0;
@@ -358,16 +374,18 @@
 
     const objectUrl = new URL('/Jiu-Jitsu.glb', import.meta.url);
 
+	console.log(input);
+
     let numInput = input.length;
 
     // WILL BE EXPANDED
     const anims = {};
-    anims['Inside_Trip'] = {name: 'Inside Trip', mult: 1.0, f: false, a: null, b: null, j: 1, k: 5};
-    anims['Kimura_From_Half'] = {name: 'Kimura From Half', mult: 1.0, f: false, a: null,b: null, j: 5, k: 9};
-    anims['Double_Leg'] = {name: 'Double Leg', mult: .50, f: false, a: null,b: null, j: 1, k: 6};
-    anims['Torreando_Pass'] = {name: 'Double Leg', mult: 0.5, f: false, a: null,b: null, j: 2, k: 6};
-    anims['Guard_Break'] = {name: 'Double Leg', mult: 0.5, f: false, a: null,b: null, j: 3, k: 4};
-    anims['Back_Take_From_Mount'] = {name: 'Back Take From Mount', mult: 0.4, f: false, a: null,b: null, j: 7, k: 8};
+    anims['Inside Trip'] = {name: 'Inside Trip', mult: 1.0, f: false, a: null, b: null, j: 1, k: 5};
+    anims['Kimura From Half'] = {name: 'Kimura From Half', mult: 1.0, f: false, a: null,b: null, j: 5, k: 9};
+    anims['Double Leg'] = {name: 'Double Leg', mult: .50, f: false, a: null,b: null, j: 1, k: 6};
+    anims['Torreando Pass'] = {name: 'Double Leg', mult: 0.5, f: false, a: null,b: null, j: 2, k: 6};
+    anims['Guard Break'] = {name: 'Double Leg', mult: 0.5, f: false, a: null,b: null, j: 3, k: 4};
+    anims['Back Take From Mount'] = {name: 'Back Take From Mount', mult: 0.4, f: false, a: null,b: null, j: 7, k: 8};
     var numAnim = anims.length;
 
     // WILL BE EXPANDED
@@ -393,7 +411,7 @@
 	}
 	for(var x = 0; x < input.length; x++)
 	{
-		var line = document.getElementById((anims[input[x]].j) + "-" + (anims[input[x]].k));
+		var line = document.getElementById((anims[input[x].Name].j) + "-" + (anims[input[x].Name].k));
 		line.style.display = "block";
 	}
 
@@ -437,15 +455,15 @@
   	for(var x in anims)
   	{
   	let subActions = [];
-  	console.log(x + '_A');
-  	clip_A = THREE.AnimationClip.findByName(clips, x + '_A');
+  	console.log(x.replaceAll(" ", "_") + '_A');
+  	clip_A = THREE.AnimationClip.findByName(clips, x.replaceAll(" ", "_") + '_A');
   	console.log(clip_A);
   	let action_A = mixer.clipAction(clip_A);
   	action_A.setLoop(THREE.LoopOnce);
   	action_A.clampWhenFinished = true;
   	action_A.enable = true;
-  	console.log(x + '_B');
-  	clip_B = THREE.AnimationClip.findByName(clips, x + '_B');
+  	console.log(x.replaceAll(" ", "_") + '_B');
+  	clip_B = THREE.AnimationClip.findByName(clips, x.replaceAll(" ", "_") + '_B');
   	console.log(clip_B);
   	let action_B = mixer.clipAction(clip_B);
   	action_B.setLoop(THREE.LoopOnce);
@@ -474,14 +492,16 @@
 		lines[x].style.backgroundColor = "#000";
 		lines[x].style.zindex = "1";
 	}
-	var line = document.getElementById((anims[input[animCounter]].j) + "-" + (anims[input[animCounter]].k));
+	var line = document.getElementById((anims[input[animCounter].Name].j) + "-" + (anims[input[animCounter].Name].k));
 	line.style.zindex = "2";
 	line.style.backgroundColor = "#FF0";
-  	flip = anims[input[animCounter]].f;
+	var desc = document.getElementById("description");
+	desc.innerHTML = "<h2 style='color:#000;'>" + input[animCounter].Name + "</h2><br/><div style='color:#000;'>" + input[animCounter].Description + "</div>";
+  	flip = anims[input[animCounter].Name].f;
   	mixer._root.children[0].children[12].children[3].material.color = colors[0];
   	mixer._root.children[1].children[12].children[3].material.color = colors[1];
-  	anims[input[animCounter]].a.play();
-  	anims[input[animCounter]].b.play();
+  	anims[input[animCounter].Name].a.play();
+  	anims[input[animCounter].Name].b.play();
   	animCounter = (animCounter + 1) % numInput;
   	console.log("PLAYING " + animCounter);
     }
@@ -491,7 +511,9 @@
     {
   	if(mixer)
   	{
-  		mixer.update(clock.getDelta() * 1.5 * playback * anims[input[(numInput + animCounter - 1) % numInput]].mult);
+		console.log((numInput + animCounter - 1) % numInput);
+		console.log(input[(numInput + animCounter - 1) % numInput]);
+  		mixer.update(clock.getDelta() * 1.5 * playback.a * anims[input[(numInput + animCounter - 1) % numInput].Name].mult);
   		if(flag == 0)
   		{
   			flag = 1;
@@ -513,12 +535,35 @@
     const colorB = 'blue';
 
     //playAnimations(inp, colorA, colorB);
-  
-  
+
+
 	  import * as f from '../javascript/functions.js';
 	  var search = document.getElementById("search-field");
-	  search.addEventListener('input', function(){f.search(input);});
-	  search.addEventListener('propertychange', function(){f.search(input);});
+	  search.addEventListener('input', function(){f.search(input, result);});
+	  search.addEventListener('propertychange', function(){f.search(input, result);});
+	  var play = document.getElementById("play");
+	  play.addEventListener('click', function(){playAnimations(input.a)});
+	  var clear = document.getElementById("clear");
+	  clear.addEventListener('click', function(){let x = document.getElementById("move-buffer"); x.innerHTML = ""; input.a = [];});
+	  var pause = document.getElementById("pause");
+	  pause.addEventListener('click', function(){if(playback.a == 0.0){playback.a = playbackB.a; playbackB.a = 0.0;}else{playbackB.a = playback.a; playback.a = 0.0;}});
+	  var slider  = document.getElementById("jared");
+	  slider.addEventListener('change', function(){playback.a = slider.value;});
+	  var load = document.getElementById("load");
+	  load.addEventListener('click', function(){f.loadMoves(input);});
+	  var save = document.getElementById("save");
+	  save.addEventListener('click', function(){f.saveMoves(input);});
+	  var logout = document.getElementById("logout");
+	  logout.addEventListener('click', function(){f.logout();});
+
+	  var signin = document.getElementById("sign-in");
+	  var logout = document.getElementById("logout");
+	  if(localStorage.getItem('token'))
+	  {
+		  signin.style.display = "none";
+		  logout.style.display = "block";
+	  }
+	  logout.addEventListener('click', f.logout);
   </script>
   <!--   Core JS Files   -->
   <!-- script src="./assets/js/core/popper.min.js"></script>

@@ -12,7 +12,7 @@ _createToken = function ( d )
     {
       const expiration = new Date();
 	  console.log(d);
-      const token =  jwt.sign( d, "this_is_a_secret_key");
+      const token =  jwt.sign( d, process.env.ACCESS_TOKEN_SECRET);
       // In order to exoire with a value other than the default, use the
        // following
       /*
