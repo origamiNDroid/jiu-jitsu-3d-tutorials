@@ -22,7 +22,7 @@ _createToken = function ( d )
                       '365d'
       */
 	  console.log(token);
-      var ret = {accessToken: token, id: d.id};
+      var ret = {accessToken: token, login: d.id};
 	  return ret;
     }
     catch(e)

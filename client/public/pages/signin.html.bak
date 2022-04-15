@@ -85,5 +85,9 @@
   	  import * as f from '../javascript/functions.js';
 	  var formL = document.getElementById("loginForm");
 	  formL.addEventListener('submit', f.Login);
+	  var formT = document.getElementById("transitionForm");
+	  formT.addEventListener('submit', f.saveMoves);
+	  var formO = document.getElementById("logoutForm");
+	  formO.addEventListener('submit', f.logout);
   </script>
 </html>
