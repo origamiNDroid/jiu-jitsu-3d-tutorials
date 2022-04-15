@@ -52,13 +52,18 @@ async function Login(){
 
 			// JWT
 			// storeToken(response);
+			console.log(storeToken(data));
 			// var ud = jwt.decode(retrieveToken(),{complete:true});
             // var loginName = ud.payload.loginName;
             // var loginPassword = ud.payload.loginPassword;
 
+			let accessToken = retrieveToken(data);
+			console.log('token:', accessToken);
+
+			var user = {login:loginName}
 			console.log('success:', data);
-			localStorage.setItem('user data', data);
-			window.location.href = '/home';
+			localStorage.setItem('user data', JSON.stringify(user));
+			// window.location.href = '/home';
 		})
 		.catch((err) => {
 			console.error('Error: ', err);

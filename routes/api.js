@@ -47,8 +47,10 @@ router.post('/login', async (req, res, next) =>
 
     try
     {
-      const token = require("./createJWT.js");
+      const token = require("../createJWT.js");
       ret = token.createToken(fn, ln, id);
+	  console.log('api token:', ret);
+	  // res.status(200).json(ret);
     }
     catch(e)
     {
