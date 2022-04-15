@@ -66,7 +66,7 @@ router.post('/login', async (req, res, next) =>
   }
 
   //Return token
-  res.status(200).json(ret);
+  res.status(200).json({data: ret});
 
    // View (non-tokenized) results in postman
    // res.status(200).json(results);

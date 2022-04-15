@@ -38,7 +38,7 @@ async function Login(){
 
 	try
 	{
-		const response = fetch('/api/login',
+		const response = await fetch('/api/login',
 		{
 			method:'POST',
 			body:JSON.stringify({
@@ -47,27 +47,34 @@ async function Login(){
 			}),
 			headers:{'Content-Type': 'application/json','Accept': 'application/json'}
 		})
-		.then(response => response.text())
-		.then((response) =>{
-
+		// .then(response => response.text())
+		// .then((response) =>{
+		if (response.status == 200) {
+            const { data } = await response.json();
+			console.log('token:', data);
+            localStorage.setItem('token', data)
+        } else {
+            // Show an error
+			console.log('fail')
+        }
 			// JWT
 			// storeToken(response);
-			console.log(storeToken(data));
-			// var ud = jwt.decode(retrieveToken(),{complete:true});
-            // var loginName = ud.payload.loginName;
-            // var loginPassword = ud.payload.loginPassword;
-
-			let accessToken = retrieveToken(data);
-			console.log('token:', accessToken);
-
-			var user = {login:loginName}
-			console.log('success:', data);
-			localStorage.setItem('user data', JSON.stringify(user));
+			// console.log(storeToken(data));
+			// // var ud = jwt.decode(retrieveToken(),{complete:true});
+            // // var loginName = ud.payload.loginName;
+            // // var loginPassword = ud.payload.loginPassword;
+			//
+			// let accessToken = retrieveToken(data);
+			// console.log('token:', data.token);
+			//
+			// var user = {login:loginName}
+			// console.log('success:', data);
+			// localStorage.setItem('user data', JSON.stringify(user));
 			// window.location.href = '/home';
-		})
-		.catch((err) => {
-			console.error('Error: ', err);
-		});
+		// })
+		// .catch((err) => {
+		// 	console.error('Error: ', err);
+		// });
 
 		return;
 	}
