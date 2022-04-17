@@ -381,11 +381,24 @@
     // WILL BE EXPANDED
     const anims = {};
     anims['Inside Trip'] = {name: 'Inside Trip', mult: 1.0, f: false, a: null, b: null, j: 1, k: 5};
-    anims['Kimura From Half'] = {name: 'Kimura From Half', mult: 1.0, f: false, a: null,b: null, j: 5, k: 9};
+    anims['Half Guard Kimura'] = {name: 'Kimura From Half', mult: 1.0, f: false, a: null,b: null, j: 5, k: 9};
     anims['Double Leg'] = {name: 'Double Leg', mult: .50, f: false, a: null,b: null, j: 1, k: 6};
-    anims['Torreando Pass'] = {name: 'Double Leg', mult: 0.5, f: false, a: null,b: null, j: 2, k: 6};
-    anims['Guard Break'] = {name: 'Double Leg', mult: 0.5, f: false, a: null,b: null, j: 3, k: 4};
-    anims['Back Take From Mount'] = {name: 'Back Take From Mount', mult: 0.4, f: false, a: null,b: null, j: 7, k: 8};
+    anims['Toreando Pass'] = {name: 'Torreando Pass', mult: 0.5, f: false, a: null,b: null, j: 2, k: 6};
+    anims['Guard Break'] = {name: 'Guard Break', mult: 0.5, f: false, a: null,b: null, j: 3, k: 4};
+    anims['Back Take from Mount'] = {name: 'Back Take From Mount', mult: 0.4, f: false, a: null,b: null, j: 7, k: 8};
+	
+	anims['Pull Closed Guard'] = {name: 'Pull Closed Guard', mult: 0.4, f: false, a: null,b: null, j: 3, k: 4};
+	anims['Frame Guard Triangle'] = {name: 'Frame Guard Triangle', mult: 0.4, f: false, a: null,b: null, j: 4, k: 9};
+	anims['Bump Sweep'] = {name: 'Bump Sweep', mult: 0.4, f: true, a: null,b: null, j: 3, k: 7};
+	anims['Scissor Sweep'] = {name: 'Scissor Sweep', mult: 0.4, f: true, a: null,b: null, j: 3, k: 7};
+	anims['Kimura from Guard'] = {name: 'Kimura From Guard', mult: 0.4, f: false, a: null,b: null, j: 3, k: 9};
+	anims['Omoplata from Guard'] = {name: 'Omoplata From Guard', mult: 0.4, f: false, a: null,b: null, j: 3, k: 9};
+	anims['Triangle from Guard'] = {name: 'Triangle From Guard', mult: 0.4, f: false, a: null,b: null, j: 3, k: 9};
+	anims['Standing Knee Cut Pass'] = {name: 'Standing Knee Cut Pass', mult: 0.4, f: false, a: null,b: null, j: 2, k: 6};
+	anims['Hip Throw'] = {name: 'Hip Throw', mult: 0.4, f: false, a: null,b: null, j: 1, k: 6};
+	anims['Armbar from Guard'] = {name: 'Armbar From Guard', mult: 0.4, f: false, a: null,b: null, j: 3, k: 9};
+	anims['Standing Guard Break'] = {name: 'Standing Guard Break', mult: 0.4, f: false, a: null,b: null, j: 2, k: 3};
+	anims['Tripod Sweep'] = {name: 'Tripod Sweep', mult: 0.4, f: false, a: null,b: null, j: 2, k: 2};
     var numAnim = anims.length;
 
     // WILL BE EXPANDED
@@ -455,15 +468,15 @@
   	for(var x in anims)
   	{
   	let subActions = [];
-  	console.log(x.replaceAll(" ", "_") + '_A');
-  	clip_A = THREE.AnimationClip.findByName(clips, x.replaceAll(" ", "_") + '_A');
+  	console.log(anims[x].name.replaceAll(" ", "_") + '_A');
+  	clip_A = THREE.AnimationClip.findByName(clips, anims[x].name.replaceAll(" ", "_") + '_A');
   	console.log(clip_A);
   	let action_A = mixer.clipAction(clip_A);
   	action_A.setLoop(THREE.LoopOnce);
   	action_A.clampWhenFinished = true;
   	action_A.enable = true;
-  	console.log(x.replaceAll(" ", "_") + '_B');
-  	clip_B = THREE.AnimationClip.findByName(clips, x.replaceAll(" ", "_") + '_B');
+  	console.log(anims[x].name.replaceAll(" ", "_") + '_B');
+  	clip_B = THREE.AnimationClip.findByName(clips, anims[x].name.replaceAll(" ", "_") + '_B');
   	console.log(clip_B);
   	let action_B = mixer.clipAction(clip_B);
   	action_B.setLoop(THREE.LoopOnce);
