@@ -388,7 +388,7 @@
     anims['Back Take from Mount'] = {name: 'Back Take From Mount', mult: 0.4, f: false, a: null,b: null, j: 7, k: 8};
 	
 	anims['Pull Closed Guard'] = {name: 'Pull Closed Guard', mult: 0.4, f: false, a: null,b: null, j: 3, k: 4};
-	anims['Frame Guard Triangle'] = {name: 'Framge Guard Triangle', mult: 0.4, f: false, a: null,b: null, j: 4, k: 9};
+	anims['Frame Guard Triangle'] = {name: 'Frame Guard Triangle', mult: 0.4, f: false, a: null,b: null, j: 4, k: 9};
 	anims['Bump Sweep'] = {name: 'Bump Sweep', mult: 0.4, f: true, a: null,b: null, j: 3, k: 7};
 	anims['Scissor Sweep'] = {name: 'Scissor Sweep', mult: 0.4, f: true, a: null,b: null, j: 3, k: 7};
 	anims['Kimura from Guard'] = {name: 'Kimura From Guard', mult: 0.4, f: false, a: null,b: null, j: 3, k: 9};
