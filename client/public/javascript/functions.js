@@ -274,6 +274,8 @@ async function search(input, results){
 				console.log(input.a);
 				var o = document.createElement("div");
 				o.innerHTML = results.a[y].Name;
+				o.id = results.a[y].Name;
+				o.classList.add("move-list-item");
 				var p = document.getElementById("move-buffer");
 				p.appendChild(o);
 			};

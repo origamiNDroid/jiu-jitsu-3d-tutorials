@@ -359,16 +359,18 @@
 
 
 	export const input = {a: []};
+	export const counter = {a: 0};
 	export const result = {a: []};
 	export const playback = {a: 1.0};
 	export const playbackB = {a: 1.0};
 
     // takes list of moves in order, and two colors for animation sequence
-    async function playAnimations(input)
+    async function playAnimations(input, counter)
     {
+	counter.a = counter.a + 1;
+	let count = counter.a;
     let currentAnim = 0;
     let flag = 0;
-    let counter = 0;
     let animCounter = 0;
     let timeCounter = 0;
 
@@ -398,7 +400,7 @@
 	anims['Hip Throw'] = {name: 'Hip Throw', mult: 0.4, f: false, a: null,b: null, j: 1, k: 6};
 	anims['Armbar from Guard'] = {name: 'Armbar From Guard', mult: 0.4, f: false, a: null,b: null, j: 3, k: 9};
 	anims['Standing Guard Break'] = {name: 'Standing Guard Break', mult: 0.4, f: false, a: null,b: null, j: 2, k: 3};
-	anims['Tripod Sweep'] = {name: 'Tripod Sweep', mult: 0.4, f: false, a: null,b: null, j: 2, k: 2};
+	anims['Tripod Sweep'] = {name: 'Tripod Sweep', mult: 0.4, f: true, a: null,b: null, j: 2, k: 2};
     var numAnim = anims.length;
 
     // WILL BE EXPANDED
@@ -491,6 +493,13 @@
 
     function play()
     {
+	console.log(counter.a + " " + count);
+	console.log(mixer);
+	if(counter.a != count)
+		{
+			console.log();
+			return;
+		}
   	mixer.stopAllAction();
   	if(flip)
   	{
@@ -510,6 +519,12 @@
 	line.style.backgroundColor = "#FF0";
 	var desc = document.getElementById("description");
 	desc.innerHTML = "<h2 style='color:#000;'>" + input[animCounter].Name + "</h2><br/><div style='color:#000;'>" + input[animCounter].Description + "</div>";
+	var list = document.getElementsByClassName("move-list-item");
+	for(var x = 0; x < list.length; x++)
+	{
+		list[x].style.color = "rgba(255, 255, 255, 0.4)";
+	}
+	document.getElementById(input[animCounter].Name).style.color = "rgba(255, 255, 255, 0.4)";
   	flip = anims[input[animCounter].Name].f;
   	mixer._root.children[0].children[12].children[3].material.color = colors[0];
   	mixer._root.children[1].children[12].children[3].material.color = colors[1];
@@ -524,8 +539,6 @@
     {
   	if(mixer)
   	{
-		console.log((numInput + animCounter - 1) % numInput);
-		console.log(input[(numInput + animCounter - 1) % numInput]);
   		mixer.update(clock.getDelta() * 1.5 * playback.a * anims[input[(numInput + animCounter - 1) % numInput].Name].mult);
   		if(flag == 0)
   		{
@@ -555,7 +568,7 @@
 	  search.addEventListener('input', function(){f.search(input, result);});
 	  search.addEventListener('propertychange', function(){f.search(input, result);});
 	  var play = document.getElementById("play");
-	  play.addEventListener('click', function(){playAnimations(input.a)});
+	  play.addEventListener('click', function(){playAnimations(input.a, counter)});
 	  var clear = document.getElementById("clear");
 	  clear.addEventListener('click', function(){let x = document.getElementById("move-buffer"); x.innerHTML = ""; input.a = [];});
 	  var pause = document.getElementById("pause");
