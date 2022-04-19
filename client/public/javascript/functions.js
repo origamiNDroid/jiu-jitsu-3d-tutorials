@@ -54,9 +54,10 @@ async function Login(){
 			console.log(data.accessToken);
             localStorage.setItem('token', data.accessToken);
 			localStorage.setItem('id', data.id);
+			window.location.href = '/home';
         } else {
             // Show an error
-			console.log('fail')
+			alert("Incorrect Username or Password");
         }
 			// JWT
 			// storeToken(response);
@@ -71,7 +72,7 @@ async function Login(){
 			// var user = {login:loginName}
 			// console.log('success:', data);
 			// localStorage.setItem('user data', JSON.stringify(user));
-			window.location.href = '/home';
+			
 		// })
 		// .catch((err) => {
 		// 	console.error('Error: ', err);
@@ -230,8 +231,10 @@ function logout(){
 	logout.style.display = "none";
 }
 
-async function search(input, results){
+async function search(input, results, validList){
 	console.log("search");
+	
+	document.getElementById("bg-blocker").style.display = "none";
 
 	var s = document.getElementById("search-field");
 
@@ -266,6 +269,7 @@ async function search(input, results){
 		results.a = r;
 		for(var x = 0; x < r.length; x++)
 		{
+			if(validList[results.a[x].Name] == 1){
 			var n = document.createElement("button");
 			console.log(r[x]);
 			let y = x;
@@ -282,6 +286,7 @@ async function search(input, results){
 			  n.classList.add("move-box");
 			  n.innerHTML = r[x].Name;
 			  sr.appendChild(n);
+			}
 		}
 	})
 	.catch((err) => {

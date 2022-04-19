@@ -16,7 +16,7 @@ const port = process.env.PORT || 5000;
 mongoose
   .connect(process.env.DB, { useNewUrlParser: true })
   .then(() => console.log(`Database connected successfully`))
-  .catch((err) => {console.log("a"); console.log(err)});
+  .catch((err) => {console.log(err)});
 
 // Since mongoose's Promise is deprecated, we override it with Node's Promise
 mongoose.Promise = global.Promise;
@@ -27,7 +27,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
 app.use(bodyParser.json());
 
 app.use('/api', routes);
@@ -35,6 +34,10 @@ app.use('/api', routes);
 app.use((err, req, res, next) => {
   console.log(err);
   next();
+});
+
+app.get("/", (req, res) => {
+  res.redirect(path.join(__dirname, "client", "public", "pages/home.html"));
 });
 
 // ... other imports
@@ -65,7 +68,7 @@ app.get("/home", (req, res) => {
 });
 
 app.get("/profile", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "public", "pages/profile.html"));
+  res.sendFile(path.join(__dirname, "client", "public", "pages/editprofile.html"));
 });
 
 app.get("/signin", (req, res) => {
@@ -74,10 +77,6 @@ app.get("/signin", (req, res) => {
 
 app.get("/techniquelist", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "public", "pages/techniquelist.html"));
-});
-
-app.get("/", (req, res) => {
-  res.redirect('/home');
 });
 
 app.listen(port, () => {

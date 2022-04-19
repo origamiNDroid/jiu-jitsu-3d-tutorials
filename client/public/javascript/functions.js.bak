@@ -56,7 +56,7 @@ async function Login(){
 			localStorage.setItem('id', data.id);
         } else {
             // Show an error
-			console.log('fail')
+			alert("Incorrect Username or Password");
         }
 			// JWT
 			// storeToken(response);
@@ -230,8 +230,10 @@ function logout(){
 	logout.style.display = "none";
 }
 
-async function search(input, results){
+async function search(input, results, validList){
 	console.log("search");
+	
+	document.getElementById("bg-blocker").style.display = "none";
 
 	var s = document.getElementById("search-field");
 
@@ -266,6 +268,7 @@ async function search(input, results){
 		results.a = r;
 		for(var x = 0; x < r.length; x++)
 		{
+			if(validList[results.a[x].Name] == 1){
 			var n = document.createElement("button");
 			console.log(r[x]);
 			let y = x;
@@ -275,12 +278,14 @@ async function search(input, results){
 				var o = document.createElement("div");
 				o.innerHTML = results.a[y].Name;
 				o.id = results.a[y].Name;
+				o.classList.add("move-list-item");
 				var p = document.getElementById("move-buffer");
 				p.appendChild(o);
 			};
 			  n.classList.add("move-box");
 			  n.innerHTML = r[x].Name;
 			  sr.appendChild(n);
+			}
 		}
 	})
 	.catch((err) => {

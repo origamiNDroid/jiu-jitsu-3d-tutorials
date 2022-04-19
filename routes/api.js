@@ -64,7 +64,7 @@ router.post('/login', async (req, res, next) =>
   {
 
     ret =  { "error" : "Login/Password incorrect" };
-      res.status(200).json(ret);
+      res.status(500).json(ret);
   }
 
    // View (non-tokenized) results in postman

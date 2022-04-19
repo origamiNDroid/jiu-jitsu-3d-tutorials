@@ -71,11 +71,11 @@
                             First 3D Animated Jiu-Jitsu Website
                         </h1>
                         <p class="home__description">
-                            A flexible platform that will allow users to better understand, learn, 
+                            A flexible platform that will allow users to better understand, learn,
                             and retain information from the wonderful art of Jiu-Jitsu.
 
                         </p>
-                        <a href="#about" class="button button--flex">
+                        <a href="./dashboard" class="button button--flex">
                             Explore <i class="ri-arrow-right-down-line button__icon"></i>
                         </a>
                     </div>
@@ -116,15 +116,15 @@
                         <div class="about__details">
                             <p class="about__details-description">
                                 <i class="ri-checkbox-fill about__details-icon"></i>
-                                First 3D modeling and animations to allow linking of techniques in 
+                                First 3D modeling and animations to allow linking of techniques in
                                 any combination to result in fluid visualization of any potential scenarios.
                             </p>
                             <p class="about__details-description">
                                 <i class="ri-checkbox-fill about__details-icon"></i>
-                                Give people the ability to learn Jiu-Jitsu online, without having to go 
-                                to the training center in the COVID-19 pandemic as well as to supplement 
+                                Give people the ability to learn Jiu-Jitsu online, without having to go
+                                to the training center in the COVID-19 pandemic as well as to supplement
                                 in-person training and aid in retention.
- 
+
                             </p>
                             <p class="about__details-description">
                                 <i class="ri-checkbox-fill about__details-icon"></i>
@@ -180,7 +180,7 @@
 
 
             <!--==================== DISCLAIMER ====================-->
-            <section class="disclaimer section container" id="disclaimer">                
+            <section class="disclaimer section container" id="disclaimer">
                 <div class="disclaimer__container grid">
                     <div class="disclaimer__box">
                         <h2 class="section__title">
@@ -189,39 +189,39 @@
 
                         <div class="disclaimer__description">
                             <p class="disclaimer__description">
-                                The materials on Jiu-Jitsu 3D Tutorials web site are provided “as is”. Jiu-Jitsu 3D Tutorials makes 
-                                no warranties, expressed or implied, and hereby disclaims and negates all other 
-                                warranties, including without limitation, implied warranties or conditions of 
-                                merchantability, fitness for a particular purpose, or non-infringement of intellectual 
-                                property or other violation of rights. Further, Jiu-Jitsu 3D Tutorials does not warrant or make 
-                                any representations concerning the accuracy, likely results, or reliability of the use 
-                                of the materials on its Internet web site or otherwise relating to such materials or on 
+                                The materials on Jiu-Jitsu 3D Tutorials web site are provided “as is”. Jiu-Jitsu 3D Tutorials makes
+                                no warranties, expressed or implied, and hereby disclaims and negates all other
+                                warranties, including without limitation, implied warranties or conditions of
+                                merchantability, fitness for a particular purpose, or non-infringement of intellectual
+                                property or other violation of rights. Further, Jiu-Jitsu 3D Tutorials does not warrant or make
+                                any representations concerning the accuracy, likely results, or reliability of the use
+                                of the materials on its Internet web site or otherwise relating to such materials or on
                                 any sites linked to this site.
                             </p>
 
                             <p class="disclaimer__description">
-                                
-                                Activities associated with Jiu-Jitsu 3D Tutorials can include the risk of injury, 
-                                property damage, and other dangers associated with the contact sport. 
-                                The animated tutorials are intended to be used as an educational resource when 
-                                practicing and learning the sport of Jiu-Jitsu. This form of martial arts can be 
-                                dangerous, and can and will cause injury if not practiced responsibly. The sport 
-                                can be physically demanding and can cause exhaustion, refer to a physician before 
-                                starting intense training. 
+
+                                Activities associated with Jiu-Jitsu 3D Tutorials can include the risk of injury,
+                                property damage, and other dangers associated with the contact sport.
+                                The animated tutorials are intended to be used as an educational resource when
+                                practicing and learning the sport of Jiu-Jitsu. This form of martial arts can be
+                                dangerous, and can and will cause injury if not practiced responsibly. The sport
+                                can be physically demanding and can cause exhaustion, refer to a physician before
+                                starting intense training.
                             </p>
 
                             <p class="disclaimer__description">
-                                Dangers associated with the activity can include but are not limited to, fractures, 
-                                sprains, bruising, contusions, lacerations, and orthopedic injuries. In case of 
-                                serious injury, Jiu-Jitsu 3D Tutorials advises seeking professional medical help 
-                                immediately. This website does not and cannot recommend medical advice. 
+                                Dangers associated with the activity can include but are not limited to, fractures,
+                                sprains, bruising, contusions, lacerations, and orthopedic injuries. In case of
+                                serious injury, Jiu-Jitsu 3D Tutorials advises seeking professional medical help
+                                immediately. This website does not and cannot recommend medical advice.
                             </p>
 
                             <div class="disclaimer__description">
                                 <p class="disclaimer__area">
-                                    By practicing any tutorials or models on this website, you assume full responsibility 
-                                for any injury or action that happens during the use of tutorials. If you do not agree 
-                                to these conditions, please exit this website respectfully. 
+                                    By practicing any tutorials or models on this website, you assume full responsibility
+                                for any injury or action that happens during the use of tutorials. If you do not agree
+                                to these conditions, please exit this website respectfully.
                                 </p>
                             </div>
 
@@ -266,7 +266,7 @@
 
                             <div class="questions__content">
                                 <p class="questions__description">
-                                    Every sport is hard to learn, just be patient and you will master the art of Jiu-Jitsu.
+                                    Although Jiu-Jitsu can be overwhelming, our platform simplifies it.
                                 </p>
                             </div>
                         </div>
@@ -308,76 +308,23 @@
                 </div>
             </section>
 
-            
+
 
         <!--==================== FOOTER ====================-->
-        <section class="footer contact section container" id="contact">   
+        <section class="footer contact section container" id="contact">
             <footer class="footer section">
-                <div class="footer__container container grid">
-                    <div class="footer__content">
-
-                        <div class="footer__box">
-                            <h2 class="section__title">
-                                Questions? Concerns? Reach out to us today!
-                            </h2>
-                        </div>
-                    </div>
-
-                    <div class="footer__content">
-                        <h3 class="footer__title">Our Address</h3>
-
-                        <ul class="footer__data">
-                            <li class="footer__information">University of Central Florida</li>
-                            <li class="footer__information">4000 Central Florida Blvd. </li>
-                            <li class="footer__information">Orlando, FL 32816</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer__content">
-                        <h3 class="footer__title">Contact Us</h3>
-
-                        <ul class="footer__data">
-                            <div class="footer__information">
-                                <span class="footer__information">
-                                    <i class="ri-phone-line contact__icon"></i>
-                                    +123 456 789
-                                </span>
-                            </div>
-
-                            <div class="footer__information">
-                                <span class="footer__information">
-                                    <i class="ri-mail-line contact__icon"></i>
-                                    jiujitsu3dtutorials@gmail.com
-                                </span>
-                            </div>
-                            
-                            <div class="footer__social">
-                                <a href="https://www.facebook.com/" class="footer__social-link">
-                                    <i class="ri-facebook-fill"></i>
-                                </a>
-                                <a href="https://www.instagram.com/" class="footer__social-link">
-                                    <i class="ri-instagram-line"></i>
-                                </a>
-                                <a href="https://twitter.com/" class="footer__social-link">
-                                    <i class="ri-twitter-fill"></i>
-                                </a>
-                            </div>
-                        </ul>
-                    </div>
-                </div>
-
                 <p class="footer__copy">&#169; Jiu-Jitsu 3D Tutorials. All rigths reserved</p>
             </footer>
         </section>
-        
+
         <!--=============== SCROLL UP ===============-->
-        <a href="#" class="scrollup" id="scroll-up"> 
+        <a href="#" class="scrollup" id="scroll-up">
             <i class="ri-arrow-up-fill scrollup__icon"></i>
         </a>
 
         <!--=============== SCROLL REVEAL ===============-->
         <script src="../assets/js/scrollreveal.min.js"></script>
-        
+
         <!--=============== MAIN JS ===============-->
         <script src="../assets/js/main.js"></script>
     </body>

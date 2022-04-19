@@ -103,6 +103,13 @@
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
+	<div id="bg-blocker" style="position:absolute; left:0; top:0; width: 100%; height: 10000px; background-color: rgba(0,0,0,.8); z-index: 10;" onclick="document.getElementById('bg-blocker').style.display = 'none';">
+		<div style="position: absolute; text-align:center; top: 625px; right:70px; opacity: 1.0; text-align: center;">
+		<h1>Search For Moves</h1>
+		<h1>In The Field Below,</h1>
+		<h1>Click Move To Add</h1>
+		</div>
+	</div>
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
@@ -148,10 +155,6 @@
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-            <div class="input-group input-group-outline">
-              <label class="form-label">Type here...</label>
-              <input type="text" class="form-control">
-            </div>
           </div>
           <ul id="sign-in" class="navbar-nav  justify-content-end">
             <li class="nav-item d-flex align-items-center">
@@ -251,7 +254,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-4 col-md-6 ">
+        <div class="col-lg-4 col-md-6 " style="z-index: 1000;">
           <div class="card h-100 bg-dark-200">
             <div class="card-header pb-0 bg-dark-200">
               <h6>Search</h6>
@@ -353,7 +356,7 @@
 	  }
   </script>
   <script type="module">
-	  import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/build/three.module.js';
+	import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/build/three.module.js';
     import {OrbitControls} from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/examples/jsm/controls/OrbitControls.js';
     import {GLTFLoader} from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/examples/jsm/loaders/GLTFLoader.js';
 
@@ -437,15 +440,19 @@
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xFFFFFF);
     const camera = new THREE.PerspectiveCamera(
-  	75,
+  	50,
   	window.innerWidth / window.innerHeight,
   	0.1,
-  	1000
+  	10000
     );
-
+	
+	
+	
     camera.position.set(25, 10, 0);
 
     const controls = new OrbitControls(camera, renderer.domElement);
+	//controls.minDistance = 16.0;
+	//controls.maxDistance = 1000.0;
     controls.update();
 
     const assetLoader = new GLTFLoader();
@@ -466,6 +473,11 @@
   	mixer = new THREE.AnimationMixer(model);
   	clips = gltf.animations;
   	console.log(gltf);
+	gltf.scene.traverse( function( object ) {
+
+    object.frustumCulled = false;
+
+} );
 
   	for(var x in anims)
   	{
@@ -559,14 +571,35 @@
     const inp = ['Back_Take_From_Mount', 'Torreando_Pass', 'Guard_Break', 'Double_Leg', 'Inside_Trip', 'Kimura_From_Half'];
     const colorA = 'red';
     const colorB = 'blue';
+	
+	const validAnims = {};
+    validAnims['Inside Trip'] = 1;
+    validAnims['Half Guard Kimura'] = 1;
+    validAnims['Double Leg'] = 1;
+    validAnims['Toreando Pass'] = 1;
+    validAnims['Guard Break'] = 1;
+    validAnims['Back Take from Mount'] = 1;
+
+	validAnims['Pull Closed Guard'] = 1;
+	validAnims['Frame Guard Triangle'] = 1;
+	validAnims['Bump Sweep'] = 1;
+	validAnims['Scissor Sweep'] = 1;
+	validAnims['Kimura from Guard'] = 1;
+	validAnims['Omoplata from Guard'] = 1;
+	validAnims['Triangle from Guard'] = 1;
+	validAnims['Standing Knee Cut Pass'] = 1;
+	validAnims['Hip Throw'] = 1;
+	validAnims['Armbar from Guard'] = 1;
+	validAnims['Standing Guard Break'] = 1;
+	validAnims['Tripod Sweep'] = 1;
 
     //playAnimations(inp, colorA, colorB);
 
 
 	  import * as f from '../javascript/functions.js';
 	  var search = document.getElementById("search-field");
-	  search.addEventListener('input', function(){f.search(input, result);});
-	  search.addEventListener('propertychange', function(){f.search(input, result);});
+	  search.addEventListener('input', function(){f.search(input, result, validAnims);});
+	  search.addEventListener('propertychange', function(){f.search(input, result, validAnims);});
 	  var play = document.getElementById("play");
 	  play.addEventListener('click', function(){playAnimations(input.a, counter)});
 	  var clear = document.getElementById("clear");
@@ -588,6 +621,7 @@
 	  {
 		  signin.style.display = "none";
 		  logout.style.display = "block";
+		  document.getElementById("bg-blocker").style.display = "none";
 	  }
 	  logout.addEventListener('click', f.logout);
   </script>
